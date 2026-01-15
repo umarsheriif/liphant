@@ -4,17 +4,21 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 export default function ContactPage() {
+  const t = useTranslations('contact');
+
   return (
     <>
       <Header />
       <main className="min-h-screen py-16">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-4xl font-bold">Contact Us</h1>
+            <h1 className="text-4xl font-bold">{t('title')}</h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              We&apos;re here to help. Reach out to us with any questions or feedback.
+              {t('subtitle')}
             </p>
           </div>
 
@@ -22,41 +26,41 @@ export default function ContactPage() {
             {/* Contact Form */}
             <Card>
               <CardHeader>
-                <CardTitle>Send us a message</CardTitle>
+                <CardTitle>{t('form.title')}</CardTitle>
                 <CardDescription>
-                  Fill out the form below and we&apos;ll get back to you within 24 hours.
+                  {t('form.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form className="space-y-4">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" placeholder="Your first name" />
+                      <Label htmlFor="firstName">{t('form.firstName')}</Label>
+                      <Input id="firstName" placeholder={t('form.firstNamePlaceholder')} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" placeholder="Your last name" />
+                      <Label htmlFor="lastName">{t('form.lastName')}</Label>
+                      <Input id="lastName" placeholder={t('form.lastNamePlaceholder')} />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" />
+                    <Label htmlFor="email">{t('form.email')}</Label>
+                    <Input id="email" type="email" placeholder={t('form.emailPlaceholder')} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" placeholder="How can we help?" />
+                    <Label htmlFor="subject">{t('form.subject')}</Label>
+                    <Input id="subject" placeholder={t('form.subjectPlaceholder')} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message">{t('form.message')}</Label>
                     <textarea
                       id="message"
                       className="min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      placeholder="Tell us more about your inquiry..."
+                      placeholder={t('form.messagePlaceholder')}
                     />
                   </div>
                   <Button type="submit" className="w-full">
-                    Send Message
+                    {t('form.submit')}
                   </Button>
                 </form>
               </CardContent>
@@ -68,9 +72,9 @@ export default function ContactPage() {
                 <CardContent className="flex items-start gap-4 pt-6">
                   <Mail className="h-6 w-6 text-primary" />
                   <div>
-                    <h3 className="font-semibold">Email</h3>
-                    <p className="text-muted-foreground">support@liphant.co</p>
-                    <p className="text-sm text-muted-foreground">We respond within 24 hours</p>
+                    <h3 className="font-semibold">{t('info.email.title')}</h3>
+                    <p className="text-muted-foreground">{t('info.email.value')}</p>
+                    <p className="text-sm text-muted-foreground">{t('info.email.note')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -79,9 +83,9 @@ export default function ContactPage() {
                 <CardContent className="flex items-start gap-4 pt-6">
                   <Phone className="h-6 w-6 text-primary" />
                   <div>
-                    <h3 className="font-semibold">Phone</h3>
-                    <p className="text-muted-foreground">+20 2 1234 5678</p>
-                    <p className="text-sm text-muted-foreground">Sun-Thu, 9am-6pm (Cairo Time)</p>
+                    <h3 className="font-semibold">{t('info.phone.title')}</h3>
+                    <p className="text-muted-foreground">{t('info.phone.value')}</p>
+                    <p className="text-sm text-muted-foreground">{t('info.phone.note')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -90,9 +94,9 @@ export default function ContactPage() {
                 <CardContent className="flex items-start gap-4 pt-6">
                   <MapPin className="h-6 w-6 text-primary" />
                   <div>
-                    <h3 className="font-semibold">Office</h3>
-                    <p className="text-muted-foreground">Cairo, Egypt</p>
-                    <p className="text-sm text-muted-foreground">Smart Village, Building B2</p>
+                    <h3 className="font-semibold">{t('info.office.title')}</h3>
+                    <p className="text-muted-foreground">{t('info.office.value')}</p>
+                    <p className="text-sm text-muted-foreground">{t('info.office.note')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -101,9 +105,9 @@ export default function ContactPage() {
                 <CardContent className="flex items-start gap-4 pt-6">
                   <MessageCircle className="h-6 w-6 text-primary" />
                   <div>
-                    <h3 className="font-semibold">Live Chat</h3>
-                    <p className="text-muted-foreground">Available on the platform</p>
-                    <p className="text-sm text-muted-foreground">For registered users</p>
+                    <h3 className="font-semibold">{t('info.chat.title')}</h3>
+                    <p className="text-muted-foreground">{t('info.chat.value')}</p>
+                    <p className="text-sm text-muted-foreground">{t('info.chat.note')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -111,12 +115,12 @@ export default function ContactPage() {
               {/* FAQ Promo */}
               <Card className="bg-primary/5">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold">Looking for quick answers?</h3>
+                  <h3 className="font-semibold">{t('faqPromo.title')}</h3>
                   <p className="mt-2 text-muted-foreground">
-                    Check out our FAQ page for answers to common questions about Liphant.
+                    {t('faqPromo.description')}
                   </p>
                   <Button variant="outline" className="mt-4" asChild>
-                    <a href="/faq">Visit FAQ</a>
+                    <Link href="/faq">{t('faqPromo.button')}</Link>
                   </Button>
                 </CardContent>
               </Card>

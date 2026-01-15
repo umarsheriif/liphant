@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { locales, localeDirection, type Locale } from '@/i18n/config';
 import { Toaster } from '@/components/ui/sonner';
 import { SessionProvider } from '@/components/providers';
+import { BetaBanner } from '@/components/layout';
 import '../globals.css';
 
 // Poppins - Primary font for English (as per brand guidelines)
@@ -77,6 +78,7 @@ export default async function LocaleLayout({
       <body className={`${fontClass} antialiased`}>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
+            <BetaBanner />
             {children}
             <Toaster position={direction === 'rtl' ? 'top-left' : 'top-right'} />
           </NextIntlClientProvider>

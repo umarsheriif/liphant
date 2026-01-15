@@ -17,7 +17,7 @@ export default async function CenterTeachersPage() {
   const centerProfile = await prisma.centerProfile.findUnique({
     where: { userId: session.user.id },
     include: {
-      teachers: {
+      centerTeachers: {
         include: {
           teacher: {
             include: {
@@ -29,7 +29,7 @@ export default async function CenterTeachersPage() {
     },
   });
 
-  const teachers = centerProfile?.teachers || [];
+  const teachers = centerProfile?.centerTeachers || [];
 
   return (
     <div className="space-y-6">
@@ -61,18 +61,18 @@ export default async function CenterTeachersPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {teachers.filter((t) => t.status === 'active').length}
+              {teachers.filter((t) => t.isActive).length}
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Pending</CardTitle>
+            <CardTitle className="text-sm font-medium">Inactive</CardTitle>
             <Users className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {teachers.filter((t) => t.status === 'pending').length}
+              {teachers.filter((t) => !t.isActive).length}
             </div>
           </CardContent>
         </Card>
@@ -132,16 +132,8 @@ export default async function CenterTeachersPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge
-                      variant={
-                        ct.status === 'active'
-                          ? 'default'
-                          : ct.status === 'pending'
-                          ? 'secondary'
-                          : 'destructive'
-                      }
-                    >
-                      {ct.status}
+                    <Badge variant={ct.isActive ? 'default' : 'secondary'}>
+                      {ct.isActive ? 'Active' : 'Inactive'}
                     </Badge>
                     <Button variant="outline" size="sm">
                       View

@@ -14,6 +14,8 @@ export async function getCenters(filters: CenterFilters = {}) {
 
   const where = {
     isActive: true,
+    // Only show verified centers by default (for public search)
+    isVerified: isVerified !== undefined ? isVerified : true,
     ...(search && {
       OR: [
         { nameEn: { contains: search, mode: 'insensitive' as const } },
@@ -25,7 +27,6 @@ export async function getCenters(filters: CenterFilters = {}) {
     }),
     ...(city && { city }),
     ...(minRating && { ratingAvg: { gte: minRating } }),
-    ...(isVerified !== undefined && { isVerified }),
   };
 
   const centers = await prisma.centerProfile.findMany({
@@ -111,7 +112,7 @@ export async function getCenterTeachers(centerId: string) {
 
 export async function getCenterCities() {
   const centers = await prisma.centerProfile.findMany({
-    where: { isActive: true, city: { not: null } },
+    where: { isActive: true, isVerified: true, city: { not: null } },
     select: { city: true },
     distinct: ['city'],
   });

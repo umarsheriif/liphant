@@ -17,6 +17,7 @@ import {
   MessageSquare,
   Users,
   GraduationCap,
+  Building2,
   MessagesSquare,
   BarChart3,
   Settings,
@@ -32,6 +33,7 @@ const adminNavItems = [
   { href: '/admin/reviews', icon: MessageSquare, label: 'Review Moderation' },
   { href: '/admin/users', icon: Users, label: 'User Management' },
   { href: '/admin/teachers', icon: GraduationCap, label: 'Teacher Verification' },
+  { href: '/admin/centers', icon: Building2, label: 'Center Verification' },
   { href: '/admin/chats', icon: MessagesSquare, label: 'Chat Monitoring' },
   { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
 ];

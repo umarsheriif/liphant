@@ -47,8 +47,8 @@ export async function getTeachers(filters: TeacherFilters = {}): Promise<Teacher
       AND: [
         // Only show available teachers by default
         isAvailable !== undefined ? { isAvailable } : { isAvailable: true },
-        // Verified filter
-        isVerified !== undefined ? { isVerified } : {},
+        // Only show verified teachers by default (for public search)
+        isVerified !== undefined ? { isVerified } : { isVerified: true },
         // City filter
         city ? { city: { equals: city, mode: 'insensitive' } } : {},
         // Rate range
@@ -178,6 +178,7 @@ export async function getAvailableCities(): Promise<string[]> {
   const cities = await prisma.teacherProfile.findMany({
     where: {
       isAvailable: true,
+      isVerified: true,
       city: { not: null },
     },
     select: { city: true },

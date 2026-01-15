@@ -17,7 +17,7 @@ export default async function CenterBookingsPage() {
   const centerProfile = await prisma.centerProfile.findUnique({
     where: { userId: session.user.id },
     include: {
-      teachers: {
+      centerTeachers: {
         include: {
           teacher: {
             include: {
@@ -30,9 +30,9 @@ export default async function CenterBookingsPage() {
   });
 
   // Get all teacher IDs associated with this center
-  const teacherUserIds = centerProfile?.teachers.map((t) => t.teacher.userId) || [];
+  const teacherUserIds = centerProfile?.centerTeachers.map((t) => t.teacher.userId) || [];
 
-  // Fetch bookings for all teachers in this center
+  // Fetch bookings for all centerTeachers in this center
   const bookings = await prisma.booking.findMany({
     where: {
       teacherId: { in: teacherUserIds },
@@ -98,7 +98,7 @@ export default async function CenterBookingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Bookings</h1>
-        <p className="text-muted-foreground">View all bookings for your center&apos;s teachers</p>
+        <p className="text-muted-foreground">View all bookings for your center&apos;s centerTeachers</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">

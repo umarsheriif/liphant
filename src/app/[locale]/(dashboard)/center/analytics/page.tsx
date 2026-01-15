@@ -14,7 +14,7 @@ export default async function CenterAnalyticsPage() {
   const centerProfile = await prisma.centerProfile.findUnique({
     where: { userId: session.user.id },
     include: {
-      teachers: {
+      centerTeachers: {
         include: {
           teacher: {
             include: {
@@ -23,11 +23,11 @@ export default async function CenterAnalyticsPage() {
           },
         },
       },
-      reviews: true,
+      centerReviews: true,
     },
   });
 
-  const teacherUserIds = centerProfile?.teachers.map((t) => t.teacher.userId) || [];
+  const teacherUserIds = centerProfile?.centerTeachers.map((t) => t.teacher.userId) || [];
 
   // Get bookings for analytics
   const bookings = await prisma.booking.findMany({
@@ -38,8 +38,8 @@ export default async function CenterAnalyticsPage() {
 
   const completedBookings = bookings.filter((b) => b.status === 'completed');
   const totalRevenue = completedBookings.reduce((sum, b) => sum + (b.totalAmount || 0), 0);
-  const avgRating = centerProfile?.reviews.length
-    ? centerProfile.reviews.reduce((sum, r) => sum + r.rating, 0) / centerProfile.reviews.length
+  const avgRating = centerProfile?.centerReviews.length
+    ? centerProfile.centerReviews.reduce((sum, r) => sum + r.rating, 0) / centerProfile.centerReviews.length
     : 0;
 
   // Monthly stats (simplified)
@@ -104,7 +104,7 @@ export default async function CenterAnalyticsPage() {
               {avgRating.toFixed(1)}
               <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
             </div>
-            <p className="text-xs text-muted-foreground">{centerProfile?.reviews.length || 0} reviews</p>
+            <p className="text-xs text-muted-foreground">{centerProfile?.centerReviews.length || 0} reviews</p>
           </CardContent>
         </Card>
       </div>
@@ -116,14 +116,14 @@ export default async function CenterAnalyticsPage() {
             <CardDescription>Breakdown by teacher</CardDescription>
           </CardHeader>
           <CardContent>
-            {centerProfile?.teachers.length === 0 ? (
+            {centerProfile?.centerTeachers.length === 0 ? (
               <div className="py-8 text-center text-muted-foreground">
                 <Users className="mx-auto h-12 w-12 mb-4" />
                 <p>No teachers in your center yet</p>
               </div>
             ) : (
               <div className="space-y-4">
-                {centerProfile?.teachers.map((ct) => {
+                {centerProfile?.centerTeachers.map((ct) => {
                   const teacherBookings = bookings.filter((b) => b.teacherId === ct.teacher.userId);
                   const teacherRevenue = teacherBookings
                     .filter((b) => b.status === 'completed')
@@ -155,14 +155,14 @@ export default async function CenterAnalyticsPage() {
             <CardDescription>Latest feedback from parents</CardDescription>
           </CardHeader>
           <CardContent>
-            {!centerProfile?.reviews.length ? (
+            {!centerProfile?.centerReviews.length ? (
               <div className="py-8 text-center text-muted-foreground">
                 <Star className="mx-auto h-12 w-12 mb-4" />
                 <p>No reviews yet</p>
               </div>
             ) : (
               <div className="space-y-4">
-                {centerProfile.reviews.slice(0, 5).map((review) => (
+                {centerProfile.centerReviews.slice(0, 5).map((review) => (
                   <div key={review.id} className="border-b pb-4 last:border-0">
                     <div className="flex items-center gap-1 mb-1">
                       {[...Array(5)].map((_, i) => (

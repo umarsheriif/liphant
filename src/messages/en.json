@@ -1,4 +1,7 @@
 {
+  "beta": {
+    "message": "This is a beta version under testing. We will be ready by June 1st, 2026."
+  },
   "common": {
     "appName": "Liphant",
     "tagline": "Where every child flourishes",
@@ -303,5 +306,272 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "copyright": "© {year} Liphant. All rights reserved."
+  },
+  "about": {
+    "title": "About Liphant",
+    "subtitle": "Connecting families with qualified professionals to support children with special needs on their unique journey.",
+    "mission": {
+      "title": "Our Mission",
+      "description": "At Liphant, we believe every child deserves the opportunity to flourish. Our platform bridges the gap between families seeking specialized support and qualified shadow teachers and therapy centers dedicated to helping children reach their full potential."
+    },
+    "values": {
+      "title": "Our Values",
+      "compassion": {
+        "title": "Compassion",
+        "description": "We approach every family's journey with empathy and understanding."
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "All professionals are verified to ensure safety and quality."
+      },
+      "community": {
+        "title": "Community",
+        "description": "Building a supportive network of families and professionals."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "Committed to providing the highest quality service and support."
+      }
+    },
+    "story": {
+      "title": "Our Story",
+      "p1": "Liphant was born from a simple observation: families with children who have special needs often struggle to find qualified, trustworthy professionals. The search can be overwhelming, time-consuming, and emotionally draining.",
+      "p2": "We created Liphant to simplify this journey. Our platform brings together verified shadow teachers, speech therapists, occupational therapists, and therapy centers in one place, making it easy for parents to find the right support for their children.",
+      "p3": "Beyond just connecting families with professionals, we've built a community where parents can share experiences, find support, and celebrate their children's achievements together."
+    },
+    "stats": {
+      "teachers": "Verified Teachers",
+      "centers": "Therapy Centers",
+      "families": "Families Helped",
+      "sessions": "Sessions Booked"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about Liphant",
+    "stillQuestions": "Still have questions?",
+    "cantFind": "Can't find what you're looking for? Our support team is here to help.",
+    "contactSupport": "Contact Support",
+    "categories": {
+      "general": "General",
+      "parents": "For Parents",
+      "teachers": "For Teachers",
+      "centers": "For Therapy Centers",
+      "community": "Community"
+    },
+    "general": {
+      "q1": "What is Liphant?",
+      "a1": "Liphant is a platform that connects families with qualified shadow teachers, therapists, and therapy centers specializing in supporting children with special needs. We make it easy to find, book, and manage sessions with verified professionals.",
+      "q2": "How does Liphant verify professionals?",
+      "a2": "All teachers and therapy centers on Liphant go through a verification process that includes credential verification, background checks, and review of experience and qualifications. Verified professionals display a verification badge on their profile.",
+      "q3": "Is Liphant available in my area?",
+      "a3": "Liphant is currently available in Egypt, with a focus on Cairo and Alexandria. We are continuously expanding to new areas. Check the search feature to see available professionals near you."
+    },
+    "parents": {
+      "q1": "How do I find a teacher for my child?",
+      "a1": "Use our search feature to browse teachers by location, specialization, availability, and rating. You can view detailed profiles, read reviews from other parents, and message teachers directly before booking.",
+      "q2": "How do I book a session?",
+      "a2": "Once you find a suitable teacher, view their availability calendar and select a time slot. Fill in any relevant notes about your child's needs, and submit the booking request. The teacher will confirm or suggest alternatives.",
+      "q3": "What if I need to cancel a booking?",
+      "a3": "Cancellation policies vary by provider and are displayed when you book. Generally, cancellations made 24-48 hours in advance are fully refundable. Check the specific provider's policy for details.",
+      "q4": "How do reviews work?",
+      "a4": "After each completed session, you can leave a rating and review. Reviews help other families make informed decisions and help teachers improve their services. Please be honest and constructive in your feedback."
+    },
+    "teachers": {
+      "q1": "How do I join Liphant as a teacher?",
+      "a1": "Click \"Join as Teacher\" and create an account. Complete your profile with your qualifications, experience, and specializations. Submit required documents for verification. Once approved, you can start receiving booking requests.",
+      "q2": "How do I set my availability?",
+      "a2": "Go to your dashboard and navigate to \"Availability.\" You can set your weekly schedule, block specific dates, and update your availability in real-time. Parents can only book during your available times.",
+      "q3": "How and when do I get paid?",
+      "a3": "Payments are processed after each completed session. Funds are transferred to your registered bank account within 3-5 business days. You can track all payments in your dashboard.",
+      "q4": "What are Liphant's fees?",
+      "a4": "Liphant charges a service fee of 10-15% on each booking to cover platform costs, payment processing, and support services. The exact fee is displayed when setting your rates."
+    },
+    "centers": {
+      "q1": "How can my center join Liphant?",
+      "a1": "Register as a Therapy Center and provide your center's information, services, and credentials. Our team will verify your center and help you set up your profile. Once approved, parents can discover and book services at your center.",
+      "q2": "Can I manage multiple therapists under my center?",
+      "a2": "Yes! Center admins can invite therapists to join their center, manage their profiles, view combined analytics, and handle bookings centrally.",
+      "q3": "How do center bookings work?",
+      "a3": "Parents can book sessions with specific therapists at your center or request the next available appointment. You can manage all bookings through your center dashboard."
+    },
+    "community": {
+      "q1": "What is the Liphant Community?",
+      "a1": "The Liphant Community is a space for parents to connect, share experiences, and support each other. It includes forums organized by topic, community events like playdates and workshops, and resources shared by other families.",
+      "q2": "How do I join community events?",
+      "a2": "Browse upcoming events in the Community section. Click on an event to see details and RSVP. Some events are in-person meetups while others are online webinars or workshops.",
+      "q3": "Can I create my own community event?",
+      "a3": "Yes! Registered parents can create events like playdates, support groups, or informal meetups. Navigate to Community > Events > Create Event to get started."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help. Reach out to us with any questions or feedback.",
+    "form": {
+      "title": "Send us a message",
+      "description": "Fill out the form below and we'll get back to you within 24 hours.",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Your first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Your last name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "How can we help?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us more about your inquiry...",
+      "submit": "Send Message"
+    },
+    "info": {
+      "email": {
+        "title": "Email",
+        "value": "support@liphant.co",
+        "note": "We respond within 24 hours"
+      },
+      "phone": {
+        "title": "Phone",
+        "value": "+20 2 1234 5678",
+        "note": "Sun-Thu, 9am-6pm (Cairo Time)"
+      },
+      "office": {
+        "title": "Office",
+        "value": "Cairo, Egypt",
+        "note": "Smart Village, Building B2"
+      },
+      "chat": {
+        "title": "Live Chat",
+        "value": "Available on the platform",
+        "note": "For registered users"
+      }
+    },
+    "faqPromo": {
+      "title": "Looking for quick answers?",
+      "description": "Check out our FAQ page for answers to common questions about Liphant.",
+      "button": "Visit FAQ"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: January 2026",
+    "sections": {
+      "collect": {
+        "title": "1. Information We Collect",
+        "personal": "Personal Information: When you create an account, we collect your name, email address, phone number, and role (parent, teacher, or center admin).",
+        "profile": "Profile Information: Depending on your role, we collect additional information such as specializations, experience, location, and service details.",
+        "usage": "Usage Data: We automatically collect information about how you interact with our platform, including pages visited and features used."
+      },
+      "use": {
+        "title": "2. How We Use Your Information",
+        "intro": "We use your information to:",
+        "items": {
+          "provide": "Provide and improve our services",
+          "connect": "Connect families with appropriate service providers",
+          "process": "Process bookings and payments",
+          "send": "Send important updates and notifications",
+          "ensure": "Ensure platform safety and prevent fraud",
+          "comply": "Comply with legal obligations"
+        }
+      },
+      "sharing": {
+        "title": "3. Information Sharing",
+        "intro": "We may share your information with:",
+        "users": "Other Users: Profile information is visible to facilitate connections",
+        "providers": "Service Providers: Third parties who help us operate the platform",
+        "legal": "Legal Requirements: When required by law or to protect rights",
+        "noSell": "We do not sell your personal information to third parties."
+      },
+      "security": {
+        "title": "4. Data Security",
+        "content": "We implement appropriate technical and organizational measures to protect your personal information. This includes encryption, secure servers, and regular security assessments. However, no method of transmission over the internet is 100% secure."
+      },
+      "rights": {
+        "title": "5. Your Rights",
+        "intro": "You have the right to:",
+        "access": "Access your personal data",
+        "correct": "Correct inaccurate information",
+        "delete": "Delete your account and data",
+        "export": "Export your data",
+        "optout": "Opt-out of marketing communications"
+      },
+      "children": {
+        "title": "6. Children's Privacy",
+        "content": "While our platform helps families with children who have special needs, we do not knowingly collect personal information directly from children under 13. All account holders must be adults. Information about children is provided by their parents or guardians."
+      },
+      "cookies": {
+        "title": "7. Cookies and Tracking",
+        "content": "We use cookies and similar technologies to enhance your experience, remember your preferences, and analyze platform usage. You can control cookie settings through your browser, though some features may not function properly without them."
+      },
+      "retention": {
+        "title": "8. Data Retention",
+        "content": "We retain your personal information for as long as your account is active or as needed to provide services. After account deletion, we may retain certain data as required by law or for legitimate business purposes."
+      },
+      "transfers": {
+        "title": "9. International Transfers",
+        "content": "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers."
+      },
+      "contact": {
+        "title": "10. Contact Us",
+        "content": "For privacy-related questions or to exercise your rights, contact us at privacy@liphant.co."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: January 2026",
+    "sections": {
+      "acceptance": {
+        "title": "1. Acceptance of Terms",
+        "content": "By accessing and using Liphant (\"the Platform\"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services."
+      },
+      "description": {
+        "title": "2. Description of Service",
+        "content": "Liphant is an online platform that connects families with shadow teachers, therapists, and therapy centers specializing in special needs support. We facilitate the discovery, communication, and booking process between service providers and families."
+      },
+      "accounts": {
+        "title": "3. User Accounts",
+        "intro": "To use certain features of the Platform, you must create an account. You agree to:",
+        "accurate": "Provide accurate and complete information",
+        "security": "Maintain the security of your account credentials",
+        "notify": "Notify us immediately of any unauthorized use",
+        "responsible": "Be responsible for all activities under your account"
+      },
+      "providers": {
+        "title": "4. Service Providers",
+        "content": "Teachers and therapy centers on our platform are independent contractors, not employees of Liphant. While we verify credentials and conduct background checks, we do not guarantee the quality of services provided. Parents are encouraged to conduct their own due diligence."
+      },
+      "bookings": {
+        "title": "5. Bookings and Payments",
+        "intro": "When booking sessions through Liphant:",
+        "secure": "All payments are processed securely through our platform",
+        "cancellation": "Cancellation policies vary by provider and will be displayed at booking",
+        "fee": "Liphant charges a service fee for facilitating bookings",
+        "refunds": "Refunds are handled according to our refund policy"
+      },
+      "conduct": {
+        "title": "6. User Conduct",
+        "intro": "You agree not to:",
+        "unlawful": "Use the platform for any unlawful purpose",
+        "harass": "Harass, abuse, or harm other users",
+        "false": "Post false or misleading information",
+        "circumvent": "Attempt to circumvent our booking system",
+        "violate": "Violate any applicable laws or regulations"
+      },
+      "ip": {
+        "title": "7. Intellectual Property",
+        "content": "All content on Liphant, including logos, text, graphics, and software, is the property of Liphant or its licensors and is protected by intellectual property laws."
+      },
+      "liability": {
+        "title": "8. Limitation of Liability",
+        "content": "Liphant is not liable for any indirect, incidental, special, or consequential damages arising from your use of the platform or services booked through it. Our liability is limited to the amount paid for services through our platform."
+      },
+      "changes": {
+        "title": "9. Changes to Terms",
+        "content": "We may update these terms from time to time. Continued use of the platform after changes constitutes acceptance of the new terms. We will notify users of significant changes via email or platform notification."
+      },
+      "contact": {
+        "title": "10. Contact Us",
+        "content": "If you have questions about these Terms of Service, please contact us at legal@liphant.co."
+      }
+    }
   }
 }
