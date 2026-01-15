@@ -1,0 +1,62 @@
+<svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Child figure excited about booking -->
+  <g transform="translate(10, 40)">
+    <!-- Hair -->
+    <ellipse cx="28" cy="15" rx="18" ry="14" fill="#FFB347"/>
+    <circle cx="12" cy="10" r="7" fill="#FFB347"/>
+    <circle cx="44" cy="10" r="7" fill="#FFB347"/>
+    <!-- Face -->
+    <ellipse cx="28" cy="22" rx="15" ry="17" fill="#FFDCB5"/>
+    <!-- Blush -->
+    <ellipse cx="19" cy="28" rx="4" ry="2.5" fill="#FFB5B5" opacity="0.6"/>
+    <ellipse cx="37" cy="28" rx="4" ry="2.5" fill="#FFB5B5" opacity="0.6"/>
+    <!-- Excited eyes -->
+    <ellipse cx="21" cy="22" rx="4" ry="5" fill="#333"/>
+    <ellipse cx="35" cy="22" rx="4" ry="5" fill="#333"/>
+    <circle cx="22" cy="21" r="1.5" fill="white"/>
+    <circle cx="36" cy="21" r="1.5" fill="white"/>
+    <!-- Big excited smile -->
+    <path d="M20 34 Q28 45 36 34" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <path d="M12 40 Q10 55 14 80 L42 80 Q46 55 44 40 Q36 38 28 38 Q20 38 12 40" fill="#FF9999"/>
+    <!-- Arms up celebrating -->
+    <path d="M14 48 Q0 35 -5 25" stroke="#FFDCB5" stroke-width="8" stroke-linecap="round"/>
+    <path d="M42 48 Q56 35 61 25" stroke="#FFDCB5" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="-5" cy="25" rx="5" ry="4" fill="#FFDCB5"/>
+    <ellipse cx="61" cy="25" rx="5" ry="4" fill="#FFDCB5"/>
+  </g>
+
+  <!-- Calendar -->
+  <g transform="translate(70, 20)">
+    <rect x="0" y="10" width="55" height="50" rx="6" fill="#7B8CDE"/>
+    <rect x="0" y="10" width="55" height="14" rx="6" fill="#5A6BC7"/>
+    <!-- Calendar rings -->
+    <rect x="12" y="5" width="4" height="10" rx="2" fill="#333"/>
+    <rect x="25" y="5" width="4" height="10" rx="2" fill="#333"/>
+    <rect x="38" y="5" width="4" height="10" rx="2" fill="#333"/>
+    <!-- Calendar grid -->
+    <rect x="5" y="28" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+    <rect x="17" y="28" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+    <rect x="29" y="28" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+    <rect x="41" y="28" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+    <rect x="5" y="40" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+    <rect x="17" y="40" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+    <!-- Selected date -->
+    <rect x="29" y="40" width="9" height="9" rx="1.5" fill="#D4E79E"/>
+    <path d="M31 44.5 L33 47 L37 42" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="41" y="40" width="9" height="9" rx="1.5" fill="white" opacity="0.3"/>
+  </g>
+
+  <!-- Celebration elements -->
+  <path d="M95 80 L98 88 L106 88 L100 93 L103 101 L95 96 L87 101 L90 93 L84 88 L92 88 Z" fill="#FFD93D" opacity="0.8"/>
+  <path d="M15 15 L17 20 L22 20 L18 23 L20 28 L15 25 L10 28 L12 23 L8 20 L13 20 Z" fill="#FFD93D" opacity="0.6"/>
+
+  <!-- Confetti dots -->
+  <circle cx="80" cy="95" r="3" fill="#FF9999" opacity="0.6"/>
+  <circle cx="110" cy="100" r="2.5" fill="#7B8CDE" opacity="0.5"/>
+  <circle cx="60" cy="10" r="3" fill="#D4E79E" opacity="0.6"/>
+  <circle cx="130" cy="50" r="2" fill="#FF9999" opacity="0.5"/>
+
+  <!-- Small hearts -->
+  <path d="M5 60 Q5 55 10 55 Q15 55 15 60 Q15 65 10 70 Q5 65 5 60" fill="#FF9999" opacity="0.5"/>
+</svg>

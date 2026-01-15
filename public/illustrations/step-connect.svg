@@ -1,0 +1,59 @@
+<svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Parent figure on left -->
+  <g transform="translate(5, 35)">
+    <!-- Hair -->
+    <ellipse cx="28" cy="18" rx="18" ry="15" fill="#2D1810"/>
+    <!-- Face -->
+    <ellipse cx="28" cy="24" rx="15" ry="17" fill="#E8C4A0"/>
+    <!-- Blush -->
+    <ellipse cx="20" cy="30" rx="3.5" ry="2" fill="#FFB5B5" opacity="0.5"/>
+    <ellipse cx="36" cy="30" rx="3.5" ry="2" fill="#FFB5B5" opacity="0.5"/>
+    <!-- Happy eyes -->
+    <path d="M21 24 Q24 20 27 24" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M29 24 Q32 20 35 24" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Smile -->
+    <path d="M22 35 Q28 42 34 35" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <path d="M12 42 Q10 55 14 80 L42 80 Q46 55 44 42 Q36 40 28 40 Q20 40 12 42" fill="#7B8CDE"/>
+    <!-- Arm waving -->
+    <path d="M42 50 Q55 40 62 35" stroke="#E8C4A0" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="62" cy="35" rx="5" ry="4.5" fill="#E8C4A0"/>
+  </g>
+
+  <!-- Teacher figure on right -->
+  <g transform="translate(75, 30)">
+    <!-- Hair -->
+    <ellipse cx="30" cy="18" rx="20" ry="16" fill="#8B6914"/>
+    <!-- Face -->
+    <ellipse cx="30" cy="26" rx="16" ry="18" fill="#FFDCB5"/>
+    <!-- Blush -->
+    <ellipse cx="21" cy="32" rx="4" ry="2.5" fill="#FFB5B5" opacity="0.5"/>
+    <ellipse cx="39" cy="32" rx="4" ry="2.5" fill="#FFB5B5" opacity="0.5"/>
+    <!-- Happy eyes -->
+    <ellipse cx="23" cy="26" rx="3" ry="3.5" fill="#333"/>
+    <ellipse cx="37" cy="26" rx="3" ry="3.5" fill="#333"/>
+    <circle cx="24" cy="25" r="1" fill="white"/>
+    <circle cx="38" cy="25" r="1" fill="white"/>
+    <!-- Big smile -->
+    <path d="M22 38 Q30 48 38 38" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <path d="M12 46 Q10 62 14 90 L46 90 Q50 62 48 46 Q39 43 30 43 Q21 43 12 46" fill="#D4E79E"/>
+    <!-- Arm waving back -->
+    <path d="M14 55 Q0 45 -8 40" stroke="#FFDCB5" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="-8" cy="40" rx="5" ry="4.5" fill="#FFDCB5"/>
+  </g>
+
+  <!-- Chat bubble between them -->
+  <g transform="translate(50, 5)">
+    <path d="M0 15 Q0 5 10 5 L30 5 Q40 5 40 15 L40 30 Q40 40 30 40 L15 40 L5 50 L8 40 Q0 40 0 30 Z" fill="#FF9999" opacity="0.9"/>
+    <!-- Heart in bubble -->
+    <path d="M15 18 Q15 13 20 13 Q25 13 25 18 Q25 23 20 28 Q15 23 15 18" fill="white"/>
+  </g>
+
+  <!-- Connection sparkles -->
+  <path d="M70 70 L72 75 L78 75 L74 78 L76 84 L70 80 L64 84 L66 78 L62 75 L68 75 Z" fill="#FFD93D" opacity="0.7"/>
+
+  <!-- Decorative dots -->
+  <circle cx="10" cy="125" r="4" fill="#FF9999" opacity="0.5"/>
+  <circle cx="130" cy="15" r="3" fill="#7B8CDE" opacity="0.5"/>
+</svg>

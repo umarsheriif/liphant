@@ -1,0 +1,304 @@
+{
+  "common": {
+    "appName": "ليفانت",
+    "tagline": "حيث يزدهر كل طفل",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "retry": "حاول مرة أخرى",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "submit": "إرسال",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "view": "عرض",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "all": "الكل",
+    "none": "لا شيء",
+    "yes": "نعم",
+    "no": "لا",
+    "or": "أو",
+    "and": "و"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "teachers": "البحث عن معلمين",
+    "centers": "مراكز العلاج",
+    "community": "المجتمع",
+    "about": "من نحن",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "dashboard": "لوحة التحكم",
+    "profile": "الملف الشخصي",
+    "messages": "الرسائل",
+    "bookings": "الحجوزات",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "landing": {
+    "hero": {
+      "title": "حيث يزدهر كل طفل",
+      "subtitle": "تواصل مع معلمين الظل المؤهلين ومراكز العلاج لدعم رحلة طفلك الفريدة",
+      "ctaParent": "ابحث عن معلم",
+      "ctaTeacher": "انضم كمعلم"
+    },
+    "howItWorks": {
+      "title": "كيف يعمل",
+      "step1": {
+        "title": "ابحث",
+        "description": "تصفح معلمي الظل المؤهلين ومراكز العلاج في منطقتك"
+      },
+      "step2": {
+        "title": "تواصل",
+        "description": "راجع الملفات الشخصية، تحقق من التوفر، وتواصل مباشرة"
+      },
+      "step3": {
+        "title": "احجز",
+        "description": "جدول الجلسات وأدر حجوزاتك في مكان واحد"
+      }
+    },
+    "features": {
+      "title": "لماذا ليفانت؟",
+      "verified": {
+        "title": "متخصصون موثوقون",
+        "description": "جميع المعلمين والمراكز تم التحقق من مؤهلاتهم وخبراتهم"
+      },
+      "reviews": {
+        "title": "تقييمات موثوقة",
+        "description": "آراء حقيقية من عائلات استخدمت خدماتنا"
+      },
+      "community": {
+        "title": "مجتمع داعم",
+        "description": "تواصل مع عائلات أخرى، شارك تجاربك، واحصل على الدعم"
+      },
+      "easy": {
+        "title": "حجز سهل",
+        "description": "جدولة بسيطة مع تقويم التوفر والمراسلة الفورية"
+      }
+    },
+    "cta": {
+      "title": "هل أنت مستعد للبدء؟",
+      "subtitle": "انضم إلى آلاف العائلات التي تجد الدعم المناسب لأطفالهم",
+      "button": "إنشاء حساب"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "مرحباً بعودتك",
+      "subtitle": "سجل دخولك إلى حسابك",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "register": "أنشئ حساباً"
+    },
+    "register": {
+      "title": "إنشاء حسابك",
+      "subtitle": "انضم إلى ليفانت اليوم",
+      "name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "phone": "رقم الهاتف",
+      "role": "أنا",
+      "roleParent": "ولي أمر",
+      "roleTeacher": "معلم ظل",
+      "submit": "إنشاء حساب",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "login": "سجل دخولك",
+      "terms": "بإنشاء حساب، فإنك توافق على",
+      "termsLink": "شروط الخدمة",
+      "privacyLink": "سياسة الخصوصية"
+    },
+    "errors": {
+      "invalidEmail": "يرجى إدخال بريد إلكتروني صحيح",
+      "passwordTooShort": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "passwordMismatch": "كلمات المرور غير متطابقة",
+      "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "emailInUse": "هذا البريد الإلكتروني مسجل بالفعل"
+    }
+  },
+  "teacher": {
+    "card": {
+      "experience": "{years} سنوات خبرة",
+      "perHour": "/ساعة",
+      "viewProfile": "عرض الملف",
+      "bookNow": "احجز الآن"
+    },
+    "profile": {
+      "about": "نبذة",
+      "specializations": "التخصصات",
+      "experience": "الخبرة",
+      "education": "التعليم",
+      "certifications": "الشهادات",
+      "availability": "التوفر",
+      "reviews": "التقييمات",
+      "noReviews": "لا توجد تقييمات بعد",
+      "location": "الموقع",
+      "contact": "التواصل"
+    },
+    "search": {
+      "title": "البحث عن معلمي الظل",
+      "placeholder": "ابحث بالاسم أو التخصص...",
+      "filters": {
+        "location": "الموقع",
+        "specialization": "التخصص",
+        "rating": "التقييم",
+        "price": "نطاق السعر",
+        "availability": "متاح الآن"
+      },
+      "noResults": "لم يتم العثور على معلمين يطابقون معاييرك",
+      "results": "تم العثور على {count} معلم"
+    },
+    "dashboard": {
+      "title": "لوحة تحكم المعلم",
+      "welcome": "مرحباً بعودتك، {name}",
+      "pendingBookings": "الحجوزات المعلقة",
+      "todaySchedule": "جدول اليوم",
+      "recentReviews": "أحدث التقييمات",
+      "earnings": "الأرباح"
+    }
+  },
+  "parent": {
+    "dashboard": {
+      "title": "لوحة تحكم ولي الأمر",
+      "welcome": "مرحباً بعودتك، {name}",
+      "upcomingBookings": "الحجوزات القادمة",
+      "recentMessages": "الرسائل الأخيرة",
+      "recommendedTeachers": "معلمون موصى بهم"
+    },
+    "profile": {
+      "children": "الأطفال",
+      "addChild": "إضافة طفل",
+      "childAge": "العمر",
+      "childConditions": "الاحتياجات الخاصة"
+    }
+  },
+  "booking": {
+    "title": "حجز جلسة",
+    "pageTitle": "الحجوزات",
+    "myBookings": "حجوزاتي",
+    "manageBookings": "إدارة طلبات الجلسات والجدول الزمني",
+    "viewManageBookings": "عرض وإدارة حجوزات جلساتك",
+    "selectDate": "اختر التاريخ",
+    "selectTime": "اختر الوقت",
+    "duration": "المدة",
+    "notes": "ملاحظات (اختياري)",
+    "notesPlaceholder": "أي متطلبات محددة أو معلومات للمعلم...",
+    "total": "الإجمالي",
+    "confirm": "تأكيد الحجز",
+    "success": "تم تأكيد الحجز!",
+    "pending": "معلق",
+    "confirmed": "مؤكد",
+    "completed": "مكتمل",
+    "cancelled": "ملغي",
+    "declined": "مرفوض",
+    "tabs": {
+      "pending": "المعلقة",
+      "confirmed": "المؤكدة",
+      "upcoming": "القادمة",
+      "past": "السابقة"
+    },
+    "empty": {
+      "pending": "لا توجد طلبات معلقة",
+      "pendingSubtext": "ستظهر طلبات الحجز الجديدة هنا",
+      "confirmed": "لا توجد حجوزات مؤكدة",
+      "upcoming": "لا توجد حجوزات قادمة",
+      "upcomingSubtext": "تصفح المعلمين لحجز أول جلسة لك",
+      "past": "لا توجد حجوزات سابقة"
+    },
+    "card": {
+      "session": "جلسة",
+      "with": "مع",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "notes": "ملاحظات"
+    },
+    "actions": {
+      "confirm": "تأكيد",
+      "decline": "رفض",
+      "complete": "تحديد كمكتمل",
+      "cancel": "إلغاء الحجز",
+      "confirmTitle": "تأكيد الحجز",
+      "confirmDescription": "هل أنت متأكد من رغبتك في تأكيد هذا الحجز؟",
+      "declineTitle": "رفض الحجز",
+      "declineDescription": "هل أنت متأكد من رغبتك في رفض هذا الحجز؟",
+      "completeTitle": "إكمال الحجز",
+      "completeDescription": "تحديد هذه الجلسة كمكتملة؟",
+      "cancelTitle": "إلغاء الحجز",
+      "cancelDescription": "هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟"
+    },
+    "messages": {
+      "confirmed": "تم تأكيد الحجز بنجاح",
+      "declined": "تم رفض الحجز",
+      "completed": "تم تحديد الحجز كمكتمل",
+      "cancelled": "تم إلغاء الحجز"
+    }
+  },
+  "availability": {
+    "title": "التوفر",
+    "subtitle": "حدد أوقات توفرك الأسبوعية ليتمكن أولياء الأمور من حجز الجلسات",
+    "addSlot": "إضافة فترة توفر",
+    "weeklyAvailability": "توفرك الأسبوعي",
+    "day": "اليوم",
+    "startTime": "وقت البدء",
+    "endTime": "وقت الانتهاء",
+    "addButton": "إضافة فترة",
+    "adding": "جاري الإضافة...",
+    "notAvailable": "غير متاح",
+    "removed": "تم إزالة فترة التوفر",
+    "days": {
+      "sunday": "الأحد",
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "saturday": "السبت"
+    },
+    "errors": {
+      "overlap": "هذه الفترة تتداخل مع فترة توفر موجودة",
+      "invalidTime": "يجب أن يكون وقت الانتهاء بعد وقت البدء"
+    }
+  },
+  "reviews": {
+    "title": "التقييمات",
+    "writeReview": "اكتب تقييماً",
+    "rating": "التقييم",
+    "comment": "تقييمك",
+    "commentPlaceholder": "شارك تجربتك...",
+    "submit": "إرسال التقييم",
+    "thankYou": "شكراً على تقييمك!"
+  },
+  "messages": {
+    "title": "الرسائل",
+    "noConversations": "لا توجد محادثات بعد",
+    "typeMessage": "اكتب رسالة...",
+    "send": "إرسال"
+  },
+  "specializations": {
+    "adhd": "فرط الحركة وتشتت الانتباه",
+    "autism": "طيف التوحد",
+    "speech": "علاج النطق",
+    "occupational": "العلاج الوظيفي",
+    "behavioral": "العلاج السلوكي",
+    "learning": "صعوبات التعلم",
+    "sensory": "المعالجة الحسية",
+    "developmental": "التأخر في النمو",
+    "social": "المهارات الاجتماعية",
+    "other": "أخرى"
+  },
+  "footer": {
+    "about": "عن ليفانت",
+    "aboutText": "نربط العائلات بمتخصصين مؤهلين لدعم الأطفال ذوي الاحتياجات الخاصة.",
+    "quickLinks": "روابط سريعة",
+    "support": "الدعم",
+    "contact": "اتصل بنا",
+    "faq": "الأسئلة الشائعة",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الخدمة",
+    "copyright": "© {year} ليفانت. جميع الحقوق محفوظة."
+  }
+}

@@ -1,0 +1,41 @@
+<svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Parent figure looking/searching -->
+  <g transform="translate(15, 25)">
+    <!-- Hair -->
+    <ellipse cx="35" cy="22" rx="22" ry="18" fill="#4A3728"/>
+    <!-- Face -->
+    <ellipse cx="35" cy="28" rx="18" ry="20" fill="#FFDCB5"/>
+    <!-- Blush -->
+    <ellipse cx="26" cy="34" rx="4" ry="2.5" fill="#FFB5B5" opacity="0.5"/>
+    <ellipse cx="44" cy="34" rx="4" ry="2.5" fill="#FFB5B5" opacity="0.5"/>
+    <!-- Eyes looking -->
+    <ellipse cx="28" cy="28" rx="3" ry="3.5" fill="#333"/>
+    <ellipse cx="42" cy="28" rx="3" ry="3.5" fill="#333"/>
+    <!-- Eye sparkle -->
+    <circle cx="29" cy="27" r="1" fill="white"/>
+    <circle cx="43" cy="27" r="1" fill="white"/>
+    <!-- Gentle smile -->
+    <path d="M28 40 Q35 48 42 40" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <path d="M15 50 Q12 70 18 100 L52 100 Q58 70 55 50 Q45 47 35 47 Q25 47 15 50" fill="#7B8CDE"/>
+    <!-- Arm holding magnifying glass -->
+    <path d="M52 60 Q70 55 85 45" stroke="#FFDCB5" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Magnifying glass -->
+  <circle cx="100" cy="35" r="22" stroke="#7B8CDE" stroke-width="5" fill="#D6E6FF" opacity="0.6"/>
+  <line x1="115" y1="52" x2="128" y2="68" stroke="#7B8CDE" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Profile cards inside magnifying glass -->
+  <circle cx="93" cy="30" r="6" fill="#FFDCB5"/>
+  <rect x="88" y="38" width="10" height="6" rx="2" fill="#D4E79E"/>
+  <circle cx="107" cy="35" r="5" fill="#FFDCB5"/>
+  <rect x="103" y="42" width="8" height="5" rx="2" fill="#FF9999"/>
+
+  <!-- Sparkle -->
+  <path d="M120 15 L122 20 L127 20 L123 23 L125 28 L120 25 L115 28 L117 23 L113 20 L118 20 Z" fill="#FFD93D" opacity="0.7"/>
+
+  <!-- Decorative dots -->
+  <circle cx="12" cy="115" r="4" fill="#D4E79E" opacity="0.6"/>
+  <circle cx="130" cy="100" r="3" fill="#FF9999" opacity="0.5"/>
+</svg>

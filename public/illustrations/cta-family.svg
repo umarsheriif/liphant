@@ -1,0 +1,118 @@
+<svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ground -->
+  <ellipse cx="210" cy="300" rx="180" ry="22" fill="#D4E79E" opacity="0.4"/>
+
+  <!-- Mother figure -->
+  <g transform="translate(50, 60)">
+    <!-- Hair flowing -->
+    <ellipse cx="55" cy="40" rx="38" ry="42" fill="#4A3728"/>
+    <ellipse cx="30" cy="55" rx="15" ry="20" fill="#4A3728"/>
+    <ellipse cx="80" cy="55" rx="15" ry="20" fill="#4A3728"/>
+    <!-- Face -->
+    <ellipse cx="55" cy="50" rx="30" ry="35" fill="#FFDCB5"/>
+    <!-- Rosy cheeks -->
+    <ellipse cx="38" cy="58" rx="7" ry="4" fill="#FFB5B5" opacity="0.6"/>
+    <ellipse cx="72" cy="58" rx="7" ry="4" fill="#FFB5B5" opacity="0.6"/>
+    <!-- Happy closed eyes -->
+    <path d="M40 48 Q47 42 54 48" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M56 48 Q63 42 70 48" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- Big warm smile -->
+    <path d="M40 68 Q55 85 70 68" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <path d="M22 88 Q18 120 25 200 L85 200 Q92 120 88 88 Q72 82 55 82 Q38 82 22 88" fill="#7B8CDE"/>
+    <!-- Arms reaching to hug -->
+    <path d="M25 110 Q-5 125 15 170" stroke="#FFDCB5" stroke-width="18" stroke-linecap="round"/>
+    <path d="M85 110 Q115 100 135 120" stroke="#FFDCB5" stroke-width="18" stroke-linecap="round"/>
+    <ellipse cx="15" cy="170" rx="12" ry="10" fill="#FFDCB5"/>
+  </g>
+
+  <!-- Child jumping/happy in center -->
+  <g transform="translate(160, 100)">
+    <!-- Bouncy hair -->
+    <ellipse cx="50" cy="28" rx="32" ry="28" fill="#FFB347"/>
+    <circle cx="22" cy="18" r="12" fill="#FFB347"/>
+    <circle cx="78" cy="18" r="12" fill="#FFB347"/>
+    <circle cx="50" cy="8" r="10" fill="#FFB347"/>
+    <!-- Face -->
+    <ellipse cx="50" cy="38" rx="26" ry="30" fill="#FFDCB5"/>
+    <!-- Super rosy cheeks -->
+    <ellipse cx="34" cy="48" rx="6" ry="4" fill="#FFB5B5" opacity="0.7"/>
+    <ellipse cx="66" cy="48" rx="6" ry="4" fill="#FFB5B5" opacity="0.7"/>
+    <!-- Big sparkly eyes -->
+    <ellipse cx="38" cy="38" rx="6" ry="7" fill="#333"/>
+    <ellipse cx="62" cy="38" rx="6" ry="7" fill="#333"/>
+    <circle cx="40" cy="36" r="2.5" fill="white"/>
+    <circle cx="64" cy="36" r="2.5" fill="white"/>
+    <!-- Super big smile with teeth showing -->
+    <path d="M35 58 Q50 78 65 58" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M40 58 Q50 68 60 58" fill="white"/>
+    <!-- Body -->
+    <path d="M25 70 Q22 95 28 150 L72 150 Q78 95 75 70 Q62 66 50 66 Q38 66 25 70" fill="#FF9999"/>
+    <!-- Arms way up celebrating -->
+    <path d="M28 85 Q5 55 -15 35" stroke="#FFDCB5" stroke-width="14" stroke-linecap="round"/>
+    <path d="M72 85 Q95 55 115 35" stroke="#FFDCB5" stroke-width="14" stroke-linecap="round"/>
+    <ellipse cx="-15" cy="35" rx="10" ry="9" fill="#FFDCB5"/>
+    <ellipse cx="115" cy="35" rx="10" ry="9" fill="#FFDCB5"/>
+    <!-- Legs jumping -->
+    <path d="M35 150 Q30 180 40 210" stroke="#FFDCB5" stroke-width="14" stroke-linecap="round"/>
+    <path d="M65 150 Q70 180 60 210" stroke="#FFDCB5" stroke-width="14" stroke-linecap="round"/>
+  </g>
+
+  <!-- Father figure -->
+  <g transform="translate(280, 55)">
+    <!-- Hair -->
+    <ellipse cx="55" cy="35" rx="32" ry="22" fill="#2D1810"/>
+    <!-- Face -->
+    <ellipse cx="55" cy="50" rx="30" ry="35" fill="#E8C4A0"/>
+    <!-- Rosy cheeks -->
+    <ellipse cx="38" cy="58" rx="7" ry="4" fill="#FFB5B5" opacity="0.5"/>
+    <ellipse cx="72" cy="58" rx="7" ry="4" fill="#FFB5B5" opacity="0.5"/>
+    <!-- Happy closed eyes -->
+    <path d="M40 48 Q47 42 54 48" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M56 48 Q63 42 70 48" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- Big smile -->
+    <path d="M40 68 Q55 82 70 68" stroke="#333" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <path d="M20 88 Q16 120 22 205 L88 205 Q94 120 90 88 Q72 82 55 82 Q38 82 20 88" fill="#D4E79E"/>
+    <!-- Arms reaching -->
+    <path d="M22 110 Q-10 100 -25 120" stroke="#E8C4A0" stroke-width="18" stroke-linecap="round"/>
+    <path d="M88 110 Q120 125 100 175" stroke="#E8C4A0" stroke-width="18" stroke-linecap="round"/>
+    <ellipse cx="100" cy="175" rx="12" ry="10" fill="#E8C4A0"/>
+  </g>
+
+  <!-- Floating hearts -->
+  <g fill="#FF9999">
+    <path d="M210 25 Q210 15 222 15 Q234 15 234 25 Q234 35 222 48 Q210 35 210 25" opacity="0.7">
+      <animate attributeName="transform" attributeType="XML" type="translate" values="0,0; 0,-8; 0,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M130 50 Q130 42 140 42 Q150 42 150 50 Q150 58 140 68 Q130 58 130 50" opacity="0.5">
+      <animate attributeName="transform" attributeType="XML" type="translate" values="0,0; 0,-6; 0,0" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M290 40 Q290 32 300 32 Q310 32 310 40 Q310 48 300 58 Q290 48 290 40" opacity="0.6">
+      <animate attributeName="transform" attributeType="XML" type="translate" values="0,0; 0,-7; 0,0" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M70 120 Q70 114 77 114 Q84 114 84 120 Q84 126 77 133 Q70 126 70 120" opacity="0.4"/>
+    <path d="M350 100 Q350 94 357 94 Q364 94 364 100 Q364 106 357 113 Q350 106 350 100" opacity="0.45"/>
+  </g>
+
+  <!-- Stars/sparkles -->
+  <g fill="#FFD93D">
+    <path d="M40 40 L44 52 L56 52 L47 60 L51 72 L40 64 L29 72 L33 60 L24 52 L36 52 Z" opacity="0.7"/>
+    <path d="M380 60 L383 68 L392 68 L385 73 L388 82 L380 77 L372 82 L375 73 L368 68 L377 68 Z" opacity="0.6"/>
+    <path d="M180 10 L182 16 L188 16 L184 19 L186 25 L180 22 L174 25 L176 19 L172 16 L178 16 Z" opacity="0.5"/>
+    <path d="M260 15 L262 21 L268 21 L264 24 L266 30 L260 27 L254 30 L256 24 L252 21 L258 21 Z" opacity="0.55"/>
+  </g>
+
+  <!-- Confetti dots -->
+  <circle cx="30" cy="180" r="5" fill="#7B8CDE" opacity="0.5"/>
+  <circle cx="390" cy="200" r="6" fill="#D4E79E" opacity="0.5"/>
+  <circle cx="100" cy="280" r="4" fill="#FF9999" opacity="0.4"/>
+  <circle cx="320" cy="280" r="5" fill="#7B8CDE" opacity="0.4"/>
+  <circle cx="50" cy="250" r="3" fill="#D4E79E" opacity="0.5"/>
+  <circle cx="370" cy="260" r="4" fill="#FF9999" opacity="0.45"/>
+
+  <!-- Small confetti shapes -->
+  <rect x="60" y="90" width="6" height="6" rx="1" fill="#D4E79E" opacity="0.5" transform="rotate(30 63 93)"/>
+  <rect x="350" cy="150" width="5" height="5" rx="1" fill="#7B8CDE" opacity="0.4" transform="rotate(-20 352 152)"/>
+  <rect x="150" y="280" width="5" height="5" rx="1" fill="#FF9999" opacity="0.4" transform="rotate(45 152 282)"/>
+</svg>
