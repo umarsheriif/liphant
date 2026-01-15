@@ -13,23 +13,30 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  Home,
-  Search,
-  Calendar,
-  Clock,
-  MessageCircle,
-  User,
+  LayoutDashboard,
+  MessageSquare,
+  Users,
+  GraduationCap,
+  MessagesSquare,
+  BarChart3,
   Settings,
   LogOut,
   Menu,
-  Building,
-  Users,
-  BarChart3,
+  Shield,
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { auth, signOut } from '@/lib/auth';
 
-export default async function DashboardLayout({
+const adminNavItems = [
+  { href: '/admin', icon: LayoutDashboard, label: 'Overview' },
+  { href: '/admin/reviews', icon: MessageSquare, label: 'Review Moderation' },
+  { href: '/admin/users', icon: Users, label: 'User Management' },
+  { href: '/admin/teachers', icon: GraduationCap, label: 'Teacher Verification' },
+  { href: '/admin/chats', icon: MessagesSquare, label: 'Chat Monitoring' },
+  { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
+];
+
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -40,43 +47,16 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
+  // Only admin role can access
+  if (session.user.role !== 'admin') {
+    redirect('/');
+  }
+
   const user = {
-    name: session.user.name || 'User',
+    name: session.user.name || 'Admin',
     email: session.user.email || '',
-    role: session.user.role,
     avatar: session.user.image,
   };
-
-  const isTeacher = user.role === 'teacher';
-  const isCenterAdmin = user.role === 'center_admin';
-
-  const navItems = isTeacher
-    ? [
-        { href: '/teacher/dashboard', icon: Home, label: 'Dashboard' },
-        { href: '/teacher/bookings', icon: Calendar, label: 'Bookings' },
-        { href: '/teacher/availability', icon: Clock, label: 'Availability' },
-        { href: '/community', icon: Users, label: 'Community' },
-        { href: '/messages', icon: MessageCircle, label: 'Messages' },
-        { href: '/teacher/profile', icon: User, label: 'Profile' },
-      ]
-    : isCenterAdmin
-    ? [
-        { href: '/center/dashboard', icon: Home, label: 'Dashboard' },
-        { href: '/center/teachers', icon: Users, label: 'Teachers' },
-        { href: '/center/bookings', icon: Calendar, label: 'Bookings' },
-        { href: '/center/analytics', icon: BarChart3, label: 'Analytics' },
-        { href: '/community', icon: Users, label: 'Community' },
-        { href: '/messages', icon: MessageCircle, label: 'Messages' },
-        { href: '/center/profile', icon: Building, label: 'Profile' },
-      ]
-    : [
-        { href: '/parent/dashboard', icon: Home, label: 'Dashboard' },
-        { href: '/teachers', icon: Search, label: 'Find Teachers' },
-        { href: '/centers', icon: Building, label: 'Find Centers' },
-        { href: '/parent/bookings', icon: Calendar, label: 'Bookings' },
-        { href: '/community', icon: Users, label: 'Community' },
-        { href: '/messages', icon: MessageCircle, label: 'Messages' },
-      ];
 
   return (
     <div className="flex min-h-screen">
@@ -85,14 +65,18 @@ export default async function DashboardLayout({
         <div className="flex h-full flex-col">
           {/* Logo */}
           <div className="flex h-16 items-center border-b px-6">
-            <Link href="/" className="flex items-center">
+            <Link href="/admin" className="flex items-center gap-2">
               <Logo variant="header" size="md" />
+              <span className="flex items-center gap-1 rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                <Shield className="h-3 w-3" />
+                Admin
+              </span>
             </Link>
           </div>
 
           {/* Navigation */}
           <nav className="flex-1 space-y-1 p-4">
-            {navItems.map((item) => (
+            {adminNavItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -131,12 +115,16 @@ export default async function DashboardLayout({
             <SheetContent side="left" className="w-64 p-0">
               <div className="flex h-full flex-col">
                 <div className="flex h-16 items-center border-b px-6">
-                  <Link href="/" className="flex items-center">
+                  <Link href="/admin" className="flex items-center gap-2">
                     <Logo variant="header" size="md" />
+                    <span className="flex items-center gap-1 rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      <Shield className="h-3 w-3" />
+                      Admin
+                    </span>
                   </Link>
                 </div>
                 <nav className="flex-1 space-y-1 p-4">
-                  {navItems.map((item) => (
+                  {adminNavItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -179,12 +167,6 @@ export default async function DashboardLayout({
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href={isTeacher ? '/teacher/profile' : isCenterAdmin ? '/center/profile' : '/parent/profile'}>
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
-                  </Link>
-                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/settings">
                     <Settings className="mr-2 h-4 w-4" />

@@ -19,6 +19,8 @@ export function Header({ user }: HeaderProps) {
 
   const navLinks = [
     { href: '/teachers', label: t('teachers') },
+    { href: '/centers', label: t('centers') },
+    { href: '/community', label: t('community') },
     { href: '/about', label: t('about') },
   ];
 

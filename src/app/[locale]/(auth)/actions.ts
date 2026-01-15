@@ -44,9 +44,18 @@ export async function login(
     });
 
     // Redirect based on role
-    const dashboardPath = user?.role === 'teacher'
-      ? '/teacher/dashboard'
-      : '/parent/dashboard';
+    let dashboardPath = '/parent/dashboard';
+    switch (user?.role) {
+      case 'admin':
+        dashboardPath = '/admin';
+        break;
+      case 'teacher':
+        dashboardPath = '/teacher/dashboard';
+        break;
+      case 'center_admin':
+        dashboardPath = '/center/dashboard';
+        break;
+    }
     redirect(dashboardPath);
   } catch (error) {
     if (error instanceof AuthError) {
@@ -67,6 +76,7 @@ export async function register(
     confirmPassword: formData.get('confirmPassword'),
     phone: formData.get('phone') || undefined,
     role: formData.get('role'),
+    centerName: formData.get('centerName') || undefined,
   };
 
   const validatedFields = registerSchema.safeParse(rawData);
@@ -90,41 +100,62 @@ export async function register(
   // Hash password
   const hashedPassword = await bcrypt.hash(validatedFields.data.password, 12);
 
-  // Create user with profile
+  // Create user with profile based on role
   try {
+    const profileData = (() => {
+      switch (validatedFields.data.role) {
+        case 'parent':
+          return {
+            parentProfile: {
+              create: {
+                childrenCount: 0,
+                childrenAges: [],
+                childrenConditions: [],
+              },
+            },
+          };
+        case 'teacher':
+          return {
+            teacherProfile: {
+              create: {
+                specializations: [],
+                experienceYears: 0,
+                hourlyRate: 0,
+                serviceRadiusKm: 10,
+                isVerified: false,
+                isAvailable: true,
+                ratingAvg: 0,
+                reviewCount: 0,
+                certifications: [],
+              },
+            },
+          };
+        case 'center_admin':
+          return {
+            centerProfile: {
+              create: {
+                nameEn: validatedFields.data.centerName || validatedFields.data.fullName + "'s Center",
+                specializations: [],
+                servicesOffered: [],
+                operatingHours: {},
+                isVerified: false,
+              },
+            },
+          };
+        default:
+          return {};
+      }
+    })();
+
     await prisma.user.create({
       data: {
         email: validatedFields.data.email,
         password: hashedPassword,
         fullName: validatedFields.data.fullName,
         phone: validatedFields.data.phone || null,
-        role: validatedFields.data.role as 'parent' | 'teacher',
+        role: validatedFields.data.role as 'parent' | 'teacher' | 'center_admin',
         preferredLanguage: 'en',
-        ...(validatedFields.data.role === 'parent'
-          ? {
-              parentProfile: {
-                create: {
-                  childrenCount: 0,
-                  childrenAges: [],
-                  childrenConditions: [],
-                },
-              },
-            }
-          : {
-              teacherProfile: {
-                create: {
-                  specializations: [],
-                  experienceYears: 0,
-                  hourlyRate: 0,
-                  serviceRadiusKm: 10,
-                  isVerified: false,
-                  isAvailable: true,
-                  ratingAvg: 0,
-                  reviewCount: 0,
-                  certifications: [],
-                },
-              },
-            }),
+        ...profileData,
       },
     });
   } catch (error) {
@@ -145,9 +176,15 @@ export async function register(
   }
 
   // Redirect based on role
-  const dashboardPath = validatedFields.data.role === 'teacher'
-    ? '/teacher/dashboard'
-    : '/parent/dashboard';
+  let dashboardPath = '/parent/dashboard';
+  switch (validatedFields.data.role) {
+    case 'teacher':
+      dashboardPath = '/teacher/dashboard';
+      break;
+    case 'center_admin':
+      dashboardPath = '/center/dashboard';
+      break;
+  }
   redirect(dashboardPath);
 }
 

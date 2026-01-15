@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { register, type AuthState } from '../actions';
-import { Loader2, User, GraduationCap } from 'lucide-react';
+import { Loader2, User, GraduationCap, Building } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 function RegisterFormContent() {
@@ -77,7 +77,7 @@ function RegisterFormContent() {
 
         <div className="space-y-2">
           <Label>{t('role')}</Label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <button
               type="button"
               onClick={() => setSelectedRole('parent')}
@@ -102,9 +102,35 @@ function RegisterFormContent() {
               <GraduationCap className="h-6 w-6" />
               <span className="text-sm font-medium">{t('roleTeacher')}</span>
             </button>
+            <button
+              type="button"
+              onClick={() => setSelectedRole('center_admin')}
+              className={`flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition-colors ${
+                selectedRole === 'center_admin'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary/50'
+              }`}
+            >
+              <Building className="h-6 w-6" />
+              <span className="text-sm font-medium">{t('roleCenter')}</span>
+            </button>
           </div>
           <input type="hidden" name="role" value={selectedRole} />
         </div>
+
+        {selectedRole === 'center_admin' && (
+          <div className="space-y-2">
+            <Label htmlFor="centerName">{t('centerName')}</Label>
+            <Input
+              id="centerName"
+              name="centerName"
+              type="text"
+              placeholder={t('centerNamePlaceholder')}
+              required
+              disabled={isPending}
+            />
+          </div>
+        )}
 
         <div className="space-y-2">
           <Label htmlFor="password">{t('password')}</Label>

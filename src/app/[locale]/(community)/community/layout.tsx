@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { LanguageSwitcher } from '@/components/layout';
+import { LanguageSwitcher, Header, Footer } from '@/components/layout';
 import { Logo } from '@/components/brand';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -14,32 +13,40 @@ import {
 } from '@/components/ui/dropdown-menu';
 import {
   Home,
-  Search,
   Calendar,
-  Clock,
-  MessageCircle,
+  MessageSquare,
   User,
   Settings,
   LogOut,
   Menu,
-  Building,
   Users,
-  BarChart3,
+  LogIn,
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { auth, signOut } from '@/lib/auth';
 
-export default async function DashboardLayout({
+export default async function CommunityLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await auth();
+  const isLoggedIn = !!session?.user;
 
-  if (!session?.user) {
-    redirect('/login');
+  // If not logged in, show public layout
+  if (!isLoggedIn) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1 bg-muted/30">
+          <div className="container mx-auto px-4 py-6">{children}</div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
+  // Logged in user gets dashboard-style layout
   const user = {
     name: session.user.name || 'User',
     email: session.user.email || '',
@@ -47,36 +54,17 @@ export default async function DashboardLayout({
     avatar: session.user.image,
   };
 
-  const isTeacher = user.role === 'teacher';
-  const isCenterAdmin = user.role === 'center_admin';
+  const navItems = [
+    { href: '/community', icon: Home, label: 'Overview' },
+    { href: '/community/events', icon: Calendar, label: 'Events' },
+    { href: '/community/forum', icon: MessageSquare, label: 'Forum' },
+  ];
 
-  const navItems = isTeacher
-    ? [
-        { href: '/teacher/dashboard', icon: Home, label: 'Dashboard' },
-        { href: '/teacher/bookings', icon: Calendar, label: 'Bookings' },
-        { href: '/teacher/availability', icon: Clock, label: 'Availability' },
-        { href: '/community', icon: Users, label: 'Community' },
-        { href: '/messages', icon: MessageCircle, label: 'Messages' },
-        { href: '/teacher/profile', icon: User, label: 'Profile' },
-      ]
-    : isCenterAdmin
-    ? [
-        { href: '/center/dashboard', icon: Home, label: 'Dashboard' },
-        { href: '/center/teachers', icon: Users, label: 'Teachers' },
-        { href: '/center/bookings', icon: Calendar, label: 'Bookings' },
-        { href: '/center/analytics', icon: BarChart3, label: 'Analytics' },
-        { href: '/community', icon: Users, label: 'Community' },
-        { href: '/messages', icon: MessageCircle, label: 'Messages' },
-        { href: '/center/profile', icon: Building, label: 'Profile' },
-      ]
-    : [
-        { href: '/parent/dashboard', icon: Home, label: 'Dashboard' },
-        { href: '/teachers', icon: Search, label: 'Find Teachers' },
-        { href: '/centers', icon: Building, label: 'Find Centers' },
-        { href: '/parent/bookings', icon: Calendar, label: 'Bookings' },
-        { href: '/community', icon: Users, label: 'Community' },
-        { href: '/messages', icon: MessageCircle, label: 'Messages' },
-      ];
+  const dashboardLink = user.role === 'teacher'
+    ? '/teacher/dashboard'
+    : user.role === 'center_admin'
+    ? '/center/dashboard'
+    : '/parent/dashboard';
 
   return (
     <div className="flex min-h-screen">
@@ -92,28 +80,31 @@ export default async function DashboardLayout({
 
           {/* Navigation */}
           <nav className="flex-1 space-y-1 p-4">
-            {navItems.map((item) => (
+            <div className="mb-2">
               <Link
-                key={item.href}
-                href={item.href}
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                href={dashboardLink}
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               >
-                <item.icon className="h-5 w-5" />
-                {item.label}
+                <Home className="h-4 w-4" />
+                Back to Dashboard
               </Link>
-            ))}
+            </div>
+            <div className="border-t pt-2">
+              <p className="px-3 py-2 text-xs font-medium text-muted-foreground uppercase">
+                Community
+              </p>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                  <item.icon className="h-5 w-5" />
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </nav>
-
-          {/* Bottom Section */}
-          <div className="border-t p-4">
-            <Link
-              href="/settings"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              <Settings className="h-5 w-5" />
-              Settings
-            </Link>
-          </div>
         </div>
       </aside>
 
@@ -136,16 +127,25 @@ export default async function DashboardLayout({
                   </Link>
                 </div>
                 <nav className="flex-1 space-y-1 p-4">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                    >
-                      <item.icon className="h-5 w-5" />
-                      {item.label}
-                    </Link>
-                  ))}
+                  <Link
+                    href={dashboardLink}
+                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                  >
+                    <Home className="h-4 w-4" />
+                    Back to Dashboard
+                  </Link>
+                  <div className="border-t pt-2 mt-2">
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      >
+                        <item.icon className="h-5 w-5" />
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 </nav>
               </div>
             </SheetContent>
@@ -180,9 +180,9 @@ export default async function DashboardLayout({
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href={isTeacher ? '/teacher/profile' : isCenterAdmin ? '/center/profile' : '/parent/profile'}>
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
+                  <Link href={dashboardLink}>
+                    <Home className="mr-2 h-4 w-4" />
+                    Dashboard
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>

@@ -33,10 +33,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           include: {
             parentProfile: true,
             teacherProfile: true,
+            centerProfile: true,
           },
         });
 
         if (!user || !user.password) return null;
+
+        // Check if user is suspended
+        if (user.isSuspended) return null;
 
         const passwordsMatch = await bcrypt.compare(password, user.password);
         if (!passwordsMatch) return null;
