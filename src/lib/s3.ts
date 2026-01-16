@@ -132,3 +132,31 @@ export async function verifyS3Object(key: string): Promise<boolean> {
     return false;
   }
 }
+
+// Profile image types
+export type ProfileImageType = 'user' | 'center' | 'teacher';
+
+// Generate S3 key for profile images
+export function generateProfileImageKey(
+  type: ProfileImageType,
+  id: string,
+  filename: string
+): string {
+  const ext = filename.split('.').pop()?.toLowerCase() || 'jpg';
+  const timestamp = Date.now();
+  return `staticsbyliph/${type}s/${id}/avatar-${timestamp}.${ext}`;
+}
+
+// Allowed image types for profile pictures
+export const ALLOWED_IMAGE_TYPES: Record<string, string[]> = {
+  'image/jpeg': ['.jpg', '.jpeg'],
+  'image/png': ['.png'],
+  'image/gif': ['.gif'],
+  'image/webp': ['.webp'],
+};
+
+export const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB
+
+export function isAllowedImageType(mimeType: string): boolean {
+  return mimeType in ALLOWED_IMAGE_TYPES;
+}
