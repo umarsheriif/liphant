@@ -59,7 +59,7 @@ interface BookingRecord {
     id: string;
     fullName: string;
     avatarUrl: string | null;
-  };
+  } | null;
   sessionNotes: SessionNote[];
   sessionDocuments: SessionDocument[];
 }
@@ -175,7 +175,10 @@ export function CenterRecordsClient({
           {recordsWithContent.map((record) => (
             <SessionRecordCard
               key={record.id}
-              booking={record}
+              booking={{
+                ...record,
+                teacher: record.teacher ?? undefined,
+              }}
               currentUserId={currentUserId}
               showTeacher
               showParent

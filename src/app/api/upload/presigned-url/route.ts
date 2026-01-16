@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 7. Determine center affiliation
-    const centerId = booking.teacher.teacherProfile?.centerEmployments?.[0]?.centerId || null;
+    const centerId = booking.teacher?.teacherProfile?.centerEmployments?.[0]?.centerId || null;
 
     // 8. Generate S3 key with proper hierarchy
     const s3Key = generateS3Key({

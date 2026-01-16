@@ -20,6 +20,7 @@ enum UserRole {
 
 enum BookingStatus {
   pending
+  awaiting_assignment // Center booking without teacher assigned yet
   confirmed
   completed
   cancelled
@@ -221,9 +222,10 @@ model TeacherProfile {
   ratingAvg       Float            @default(0) @map("rating_avg")
   reviewCount     Int              @default(0) @map("review_count")
 
-  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  availabilities    Availability[]
-  centerEmployments CenterTeacher[]
+  user               User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  availabilities     Availability[]
+  centerEmployments  CenterTeacher[]
+  serviceAssignments TeacherServiceAssignment[]
 
   @@map("teacher_profiles")
 }
@@ -246,7 +248,9 @@ model Availability {
 model Booking {
   id          String        @id @default(cuid())
   parentId    String        @map("parent_id")
-  teacherId   String        @map("teacher_id")
+  teacherId   String?       @map("teacher_id") // Optional for center bookings
+  centerId    String?       @map("center_id") // For center service bookings
+  serviceId   String?       @map("service_id") // Which service was booked
   status      BookingStatus @default(pending)
   bookingDate DateTime      @map("booking_date") @db.Date
   startTime   String        @map("start_time") // HH:MM format
@@ -257,7 +261,9 @@ model Booking {
   updatedAt   DateTime      @updatedAt @map("updated_at")
 
   parent           User              @relation("ParentBookings", fields: [parentId], references: [id])
-  teacher          User              @relation("TeacherBookings", fields: [teacherId], references: [id])
+  teacher          User?             @relation("TeacherBookings", fields: [teacherId], references: [id])
+  center           CenterProfile?    @relation(fields: [centerId], references: [id])
+  service          CenterService?    @relation(fields: [serviceId], references: [id])
   review           Review?
   sessionNotes     SessionNote[]
   sessionDocuments SessionDocument[]
@@ -353,6 +359,8 @@ model CenterProfile {
   user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   centerTeachers CenterTeacher[]
   centerReviews  CenterReview[]
+  services       CenterService[]
+  bookings       Booking[]
 
   @@map("center_profiles")
 }
@@ -393,6 +401,42 @@ model CenterReview {
 
   @@unique([centerId, parentId])
   @@map("center_reviews")
+}
+
+// Center services - bookable therapy services offered by centers
+model CenterService {
+  id            String   @id @default(cuid())
+  centerId      String   @map("center_id")
+  nameEn        String   @map("name_en")
+  nameAr        String?  @map("name_ar")
+  descriptionEn String?  @map("description_en") @db.Text
+  descriptionAr String?  @map("description_ar") @db.Text
+  price         Int      // Price in smallest currency unit
+  duration      Int      // Duration in minutes
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  center             CenterProfile              @relation(fields: [centerId], references: [id], onDelete: Cascade)
+  teacherAssignments TeacherServiceAssignment[]
+  bookings           Booking[]
+
+  @@map("center_services")
+}
+
+// Junction table for Teacher-Service assignments
+model TeacherServiceAssignment {
+  id        String   @id @default(cuid())
+  serviceId String   @map("service_id")
+  teacherId String   @map("teacher_id")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  service CenterService  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  teacher TeacherProfile @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, teacherId])
+  @@map("teacher_service_assignments")
 }
 
 // ============================================

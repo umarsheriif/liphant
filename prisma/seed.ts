@@ -562,6 +562,7 @@ async function main() {
     if (!booking) continue;
 
     const authorId = data.authorType === 'teacher' ? booking.teacherId : booking.parentId;
+    if (!authorId) continue; // Skip if no teacher assigned
 
     await prisma.sessionNote.create({
       data: {
@@ -597,6 +598,7 @@ async function main() {
     if (!booking) continue;
 
     const uploaderId = data.uploaderType === 'teacher' ? booking.teacherId : booking.parentId;
+    if (!uploaderId) continue; // Skip if no teacher assigned
 
     await prisma.sessionDocument.create({
       data: {
@@ -629,7 +631,7 @@ async function main() {
 
   for (const data of reviewsData) {
     const booking = completedBookings[data.bookingIdx];
-    if (!booking) continue;
+    if (!booking || !booking.teacherId) continue; // Skip if no teacher assigned
 
     await prisma.review.create({
       data: {
@@ -936,6 +938,159 @@ async function main() {
   console.log('  ✓ Linked teachers to centers');
 
   // ============================================
+  // 15. CREATE CENTER SERVICES
+  // ============================================
+  console.log('\nCreating center services...');
+
+  const centerServicesData: {
+    centerIdx: number;
+    services: { nameEn: string; nameAr: string; descriptionEn: string; descriptionAr: string; price: number; duration: number }[];
+  }[] = [
+    {
+      centerIdx: 0, // Hope Center
+      services: [
+        { nameEn: 'Speech Therapy', nameAr: 'علاج النطق', descriptionEn: 'Professional speech therapy sessions to improve communication skills.', descriptionAr: 'جلسات علاج النطق المتخصصة لتحسين مهارات التواصل.', price: 400, duration: 45 },
+        { nameEn: 'Occupational Therapy', nameAr: 'العلاج الوظيفي', descriptionEn: 'Focused therapy for fine motor skills and daily living activities.', descriptionAr: 'علاج متخصص للمهارات الحركية الدقيقة وأنشطة الحياة اليومية.', price: 350, duration: 45 },
+        { nameEn: 'ABA Therapy', nameAr: 'العلاج السلوكي التطبيقي', descriptionEn: 'Applied Behavior Analysis therapy for autism spectrum support.', descriptionAr: 'علاج تحليل السلوك التطبيقي لدعم طيف التوحد.', price: 450, duration: 60 },
+      ],
+    },
+    {
+      centerIdx: 1, // Bright Minds
+      services: [
+        { nameEn: 'Early Intervention', nameAr: 'التدخل المبكر', descriptionEn: 'Comprehensive early intervention program for children 0-5 years.', descriptionAr: 'برنامج تدخل مبكر شامل للأطفال من 0-5 سنوات.', price: 500, duration: 60 },
+        { nameEn: 'Social Skills Group', nameAr: 'مجموعة المهارات الاجتماعية', descriptionEn: 'Group therapy sessions to develop social interaction skills.', descriptionAr: 'جلسات علاج جماعية لتطوير مهارات التفاعل الاجتماعي.', price: 300, duration: 90 },
+        { nameEn: 'Parent Training', nameAr: 'تدريب الآباء', descriptionEn: 'Training sessions to help parents support their children at home.', descriptionAr: 'جلسات تدريبية لمساعدة الآباء على دعم أطفالهم في المنزل.', price: 350, duration: 60 },
+      ],
+    },
+  ];
+
+  const createdServices: Record<string, { id: string; centerId: string }[]> = {};
+
+  for (const data of centerServicesData) {
+    const centerProfile = centers[data.centerIdx].centerProfile;
+    if (!centerProfile) continue;
+
+    createdServices[centerProfile.id] = [];
+
+    for (const serviceData of data.services) {
+      const service = await prisma.centerService.create({
+        data: {
+          centerId: centerProfile.id,
+          nameEn: serviceData.nameEn,
+          nameAr: serviceData.nameAr,
+          descriptionEn: serviceData.descriptionEn,
+          descriptionAr: serviceData.descriptionAr,
+          price: serviceData.price,
+          duration: serviceData.duration,
+          isActive: true,
+        },
+      });
+      createdServices[centerProfile.id].push({ id: service.id, centerId: centerProfile.id });
+    }
+    console.log(`  ✓ Created ${data.services.length} services for ${centers[data.centerIdx].centerProfile?.nameEn}`);
+  }
+
+  // ============================================
+  // 16. ASSIGN TEACHERS TO SERVICES
+  // ============================================
+  console.log('\nAssigning teachers to services...');
+
+  // Hope Center - assign first 2 teachers to all services
+  if (hopeCenterProfile && teachers[0].teacherProfile && teachers[1].teacherProfile) {
+    const hopeServices = createdServices[hopeCenterProfile.id] || [];
+    for (const service of hopeServices) {
+      await prisma.teacherServiceAssignment.create({
+        data: {
+          serviceId: service.id,
+          teacherId: teachers[0].teacherProfile.id,
+          isActive: true,
+        },
+      });
+      await prisma.teacherServiceAssignment.create({
+        data: {
+          serviceId: service.id,
+          teacherId: teachers[1].teacherProfile.id,
+          isActive: true,
+        },
+      });
+    }
+    console.log(`  ✓ Assigned 2 teachers to Hope Center services`);
+  }
+
+  // Bright Minds - assign teachers 2 and 3 to all services
+  if (brightMindsProfile && teachers[2].teacherProfile && teachers[3].teacherProfile) {
+    const brightMindsServices = createdServices[brightMindsProfile.id] || [];
+    for (const service of brightMindsServices) {
+      await prisma.teacherServiceAssignment.create({
+        data: {
+          serviceId: service.id,
+          teacherId: teachers[2].teacherProfile.id,
+          isActive: true,
+        },
+      });
+      await prisma.teacherServiceAssignment.create({
+        data: {
+          serviceId: service.id,
+          teacherId: teachers[3].teacherProfile.id,
+          isActive: true,
+        },
+      });
+    }
+    console.log(`  ✓ Assigned 2 teachers to Bright Minds services`);
+  }
+
+  // ============================================
+  // 17. CREATE CENTER SERVICE BOOKINGS
+  // ============================================
+  console.log('\nCreating center service bookings...');
+
+  const centerBookingsData = [
+    // Awaiting assignment bookings (need teacher to be assigned)
+    { parentIdx: 0, centerIdx: 0, serviceIdx: 0, daysFromNow: 5, status: 'awaiting_assignment' as const, startTime: '10:00', endTime: '10:45' },
+    { parentIdx: 1, centerIdx: 0, serviceIdx: 1, daysFromNow: 7, status: 'awaiting_assignment' as const, startTime: '14:00', endTime: '14:45' },
+    { parentIdx: 2, centerIdx: 1, serviceIdx: 0, daysFromNow: 3, status: 'awaiting_assignment' as const, startTime: '11:00', endTime: '12:00' },
+    // Confirmed center bookings (teacher already assigned)
+    { parentIdx: 0, centerIdx: 0, serviceIdx: 2, daysFromNow: 10, status: 'confirmed' as const, startTime: '15:00', endTime: '16:00', teacherIdx: 0 },
+    { parentIdx: 3, centerIdx: 1, serviceIdx: 1, daysFromNow: 14, status: 'confirmed' as const, startTime: '10:00', endTime: '11:30', teacherIdx: 2 },
+  ];
+
+  for (const bookingData of centerBookingsData) {
+    const centerProfile = centers[bookingData.centerIdx].centerProfile;
+    if (!centerProfile) continue;
+
+    const services = createdServices[centerProfile.id];
+    if (!services || !services[bookingData.serviceIdx]) continue;
+
+    const service = await prisma.centerService.findUnique({
+      where: { id: services[bookingData.serviceIdx].id },
+    });
+    if (!service) continue;
+
+    const bookingDate = new Date(today);
+    bookingDate.setDate(bookingDate.getDate() + bookingData.daysFromNow);
+
+    const teacherId = bookingData.teacherIdx !== undefined && teachers[bookingData.teacherIdx]
+      ? teachers[bookingData.teacherIdx].id
+      : null;
+
+    await prisma.booking.create({
+      data: {
+        parentId: parents[bookingData.parentIdx].id,
+        centerId: centerProfile.id,
+        serviceId: service.id,
+        teacherId,
+        status: bookingData.status,
+        bookingDate,
+        startTime: bookingData.startTime,
+        endTime: bookingData.endTime,
+        totalAmount: service.price,
+        notes: bookingData.status === 'awaiting_assignment' ? 'Awaiting teacher assignment' : null,
+      },
+    });
+  }
+  console.log(`  ✓ Created ${centerBookingsData.length} center service bookings`);
+
+  // ============================================
   // SUMMARY
   // ============================================
   console.log('\n========================================');
@@ -955,7 +1110,9 @@ async function main() {
   console.log(`  - ${parentsData.length} parents`);
   console.log(`  - ${teachersData.length} teachers`);
   console.log(`  - ${centersData.length} therapy centers`);
-  console.log(`  - ${bookingsData.length} bookings`);
+  console.log(`  - ${centerServicesData.reduce((acc, c) => acc + c.services.length, 0)} center services`);
+  console.log(`  - ${bookingsData.length} direct bookings`);
+  console.log(`  - ${centerBookingsData.length} center service bookings`);
   console.log(`  - ${sessionNotesData.length} session notes`);
   console.log(`  - ${sessionDocumentsData.length} session documents`);
   console.log(`  - ${reviewsData.length} reviews`);

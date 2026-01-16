@@ -44,7 +44,7 @@ export function getFileExtension(mimeType: string): string {
 
 // Generate the S3 key based on teacher affiliation
 export interface S3KeyParams {
-  teacherId: string;
+  teacherId: string | null;
   parentId: string;
   bookingId: string;
   filename: string;
@@ -62,11 +62,19 @@ export function generateS3Key(params: S3KeyParams): string {
   const finalFilename = `${timestamp}-${sanitizedFilename}`;
 
   if (centerId) {
-    // Center-affiliated teacher
-    return `centers/${centerId}/teachers/${teacherId}/parents/${parentId}/bookings/${bookingId}/${finalFilename}`;
-  } else {
+    // Center-affiliated booking
+    if (teacherId) {
+      return `centers/${centerId}/teachers/${teacherId}/parents/${parentId}/bookings/${bookingId}/${finalFilename}`;
+    } else {
+      // Center booking without teacher assigned yet
+      return `centers/${centerId}/parents/${parentId}/bookings/${bookingId}/${finalFilename}`;
+    }
+  } else if (teacherId) {
     // Independent teacher
     return `independent/teachers/${teacherId}/parents/${parentId}/bookings/${bookingId}/${finalFilename}`;
+  } else {
+    // Fallback for bookings without teacher or center (shouldn't happen in normal flow)
+    return `parents/${parentId}/bookings/${bookingId}/${finalFilename}`;
   }
 }
 

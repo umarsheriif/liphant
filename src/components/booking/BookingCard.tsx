@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import type { Booking, User, TeacherProfile } from '@prisma/client';
 
 type BookingWithDetails = Booking & {
-  teacher: User & { teacherProfile: TeacherProfile | null };
+  teacher: (User & { teacherProfile: TeacherProfile | null }) | null;
   parent: User;
 };
 
@@ -26,7 +26,10 @@ interface BookingCardProps {
 export function BookingCard({ booking, viewAs }: BookingCardProps) {
   const [isLoading, setIsLoading] = useState<string | null>(null);
 
-  const otherParty = viewAs === 'parent' ? booking.teacher : booking.parent;
+  // For center bookings without teacher assigned yet, show a placeholder
+  const otherParty = viewAs === 'parent'
+    ? booking.teacher || { fullName: 'Teacher to be assigned', avatarUrl: null, teacherProfile: null }
+    : booking.parent;
   const initials = otherParty.fullName
     .split(' ')
     .map((n) => n[0])
@@ -99,7 +102,7 @@ export function BookingCard({ booking, viewAs }: BookingCardProps) {
                   {booking.startTime} - {booking.endTime}
                 </span>
               </div>
-              {viewAs === 'parent' && booking.teacher.teacherProfile?.city && (
+              {viewAs === 'parent' && booking.teacher?.teacherProfile?.city && (
                 <div className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   {booking.teacher.teacherProfile.city}, {booking.teacher.teacherProfile.district}

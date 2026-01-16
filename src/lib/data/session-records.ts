@@ -360,7 +360,7 @@ export async function getBookingWithRecords(bookingId: string, currentUserId: st
 // Get unique teachers for a parent (for filtering)
 export async function getParentTeachers(parentId: string) {
   const bookings = await prisma.booking.findMany({
-    where: { parentId },
+    where: { parentId, teacherId: { not: null } },
     select: {
       teacher: {
         select: {
@@ -372,7 +372,7 @@ export async function getParentTeachers(parentId: string) {
     distinct: ['teacherId'],
   });
 
-  return bookings.map((b) => b.teacher);
+  return bookings.map((b) => b.teacher).filter((t): t is { id: string; fullName: string } => t !== null);
 }
 
 // Get unique parents for a teacher (for filtering)

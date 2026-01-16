@@ -67,6 +67,15 @@ export async function getCenterById(centerId: string) {
           },
         },
       },
+      services: {
+        where: { isActive: true },
+        include: {
+          teacherAssignments: {
+            where: { isActive: true },
+          },
+        },
+        orderBy: { createdAt: 'asc' },
+      },
       centerReviews: {
         where: { isVisible: true },
         orderBy: { createdAt: 'desc' },

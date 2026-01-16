@@ -84,7 +84,7 @@ interface BookingDetailClientProps {
       teacherProfile?: {
         specializations: string[];
       } | null;
-    };
+    } | null;
     sessionNotes: SessionNote[];
     sessionDocuments: SessionDocument[];
   };
@@ -103,7 +103,10 @@ export function BookingDetailClient({
   const [showDocUpload, setShowDocUpload] = useState(false);
   const [editingNote, setEditingNote] = useState<SessionNote | null>(null);
 
-  const otherParty = viewAs === 'parent' ? booking.teacher : booking.parent;
+  // For center bookings without teacher assigned yet, show a placeholder
+  const otherParty = viewAs === 'parent'
+    ? booking.teacher || { id: '', fullName: 'Teacher to be assigned', avatarUrl: null }
+    : booking.parent;
   const backUrl = viewAs === 'parent' ? '/parent/bookings' : '/teacher/bookings';
 
   const canAddRecords = booking.status === 'confirmed' || booking.status === 'completed';

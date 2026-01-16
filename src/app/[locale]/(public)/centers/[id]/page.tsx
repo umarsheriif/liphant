@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Header, Footer } from '@/components/layout';
-import { Building, MapPin, Star, Phone, Mail, Globe, Clock, CheckCircle, Users } from 'lucide-react';
+import { Building, MapPin, Star, Phone, Mail, Globe, Clock, CheckCircle, Users, DollarSign, Briefcase } from 'lucide-react';
 import { getCenterById } from '@/lib/data/centers';
 import Link from 'next/link';
 
@@ -94,6 +94,65 @@ export default async function CenterProfilePage({ params }: PageProps) {
                         <Badge key={spec} variant="secondary">
                           {spec}
                         </Badge>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Services */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>Services</CardTitle>
+                    {center.services.length > 0 && (
+                      <Button asChild>
+                        <Link href={`/centers/${id}/book`}>Book Now</Link>
+                      </Button>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {center.services.length === 0 ? (
+                    <p className="text-muted-foreground">No services available yet.</p>
+                  ) : (
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {center.services.map((service) => (
+                        <div
+                          key={service.id}
+                          className="rounded-lg border p-4 transition-colors hover:bg-muted/50"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <p className="font-medium">{service.nameEn}</p>
+                              {service.descriptionEn && (
+                                <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                                  {service.descriptionEn}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="mt-3 flex items-center gap-4 text-sm">
+                            <span className="flex items-center gap-1 text-green-600">
+                              <DollarSign className="h-3 w-3" />
+                              {service.price} SAR
+                            </span>
+                            <span className="flex items-center gap-1 text-muted-foreground">
+                              <Clock className="h-3 w-3" />
+                              {service.duration} min
+                            </span>
+                          </div>
+                          <Button
+                            className="mt-3 w-full"
+                            variant="outline"
+                            size="sm"
+                            asChild
+                          >
+                            <Link href={`/centers/${id}/book?service=${service.id}`}>
+                              Book This Service
+                            </Link>
+                          </Button>
+                        </div>
                       ))}
                     </div>
                   )}
@@ -239,7 +298,15 @@ export default async function CenterProfilePage({ params }: PageProps) {
                   <p className="text-center text-muted-foreground">
                     Interested in this center?
                   </p>
-                  <Button className="mt-4 w-full">Contact Center</Button>
+                  {center.services.length > 0 ? (
+                    <Button className="mt-4 w-full" asChild>
+                      <Link href={`/centers/${id}/book`}>Book a Service</Link>
+                    </Button>
+                  ) : (
+                    <Button className="mt-4 w-full" variant="outline">
+                      Contact Center
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </div>

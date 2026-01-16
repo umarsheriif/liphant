@@ -110,7 +110,7 @@ export async function getRecentActivity(limit = 10): Promise<RecentActivity[]> {
     activities.push({
       id: booking.id,
       type: 'booking_created',
-      description: `${booking.parent.fullName} booked ${booking.teacher.fullName}`,
+      description: `${booking.parent.fullName} booked ${booking.teacher?.fullName || 'a service'}`,
       createdAt: booking.createdAt,
     });
   });

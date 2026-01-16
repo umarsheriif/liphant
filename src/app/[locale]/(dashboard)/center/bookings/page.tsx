@@ -4,8 +4,9 @@ import prisma from '@/lib/prisma';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, Clock, User } from 'lucide-react';
+import { Calendar, Clock, User, AlertCircle, Briefcase } from 'lucide-react';
 import { format } from 'date-fns';
+import { CenterBookingCard } from '@/components/center/CenterBookingCard';
 
 export default async function CenterBookingsPage() {
   const session = await auth();
@@ -18,10 +19,14 @@ export default async function CenterBookingsPage() {
     where: { userId: session.user.id },
     include: {
       centerTeachers: {
+        where: { isActive: true },
         include: {
           teacher: {
             include: {
-              user: true,
+              user: {
+                select: { id: true, fullName: true, avatarUrl: true },
+              },
+              availabilities: true,
             },
           },
         },
@@ -29,85 +34,84 @@ export default async function CenterBookingsPage() {
     },
   });
 
-  // Get all teacher IDs associated with this center
-  const teacherUserIds = centerProfile?.centerTeachers.map((t) => t.teacher.userId) || [];
+  if (!centerProfile) {
+    redirect('/center/profile');
+  }
 
-  // Fetch bookings for all centerTeachers in this center
+  // Get all teacher user IDs associated with this center
+  const teacherUserIds = centerProfile.centerTeachers.map((t) => t.teacher.userId);
+
+  // Fetch all bookings: both direct teacher bookings and center service bookings
   const bookings = await prisma.booking.findMany({
     where: {
-      teacherId: { in: teacherUserIds },
+      OR: [
+        // Center service bookings (booked to the center directly)
+        { centerId: centerProfile.id },
+        // Direct teacher bookings (teacher works at this center)
+        { teacherId: { in: teacherUserIds } },
+      ],
     },
     include: {
-      parent: true,
+      parent: {
+        select: { id: true, fullName: true, avatarUrl: true },
+      },
       teacher: {
-        include: {
-          teacherProfile: true,
-        },
+        select: { id: true, fullName: true, avatarUrl: true },
+      },
+      service: {
+        select: { id: true, nameEn: true, price: true, duration: true },
       },
     },
     orderBy: { bookingDate: 'desc' },
   });
 
+  // Categorize bookings
+  const awaitingAssignmentBookings = bookings.filter((b) => b.status === 'awaiting_assignment');
   const pendingBookings = bookings.filter((b) => b.status === 'pending');
   const confirmedBookings = bookings.filter((b) => b.status === 'confirmed');
   const completedBookings = bookings.filter((b) => b.status === 'completed');
+  const cancelledBookings = bookings.filter((b) => b.status === 'cancelled');
 
-  const BookingCard = ({ booking }: { booking: typeof bookings[0] }) => (
-    <div className="flex items-center justify-between rounded-lg border p-4">
-      <div className="space-y-1">
-        <div className="flex items-center gap-2">
-          <User className="h-4 w-4 text-muted-foreground" />
-          <span className="font-medium">{booking.parent.fullName}</span>
-          <span className="text-muted-foreground">with</span>
-          <span className="font-medium">{booking.teacher.fullName}</span>
-        </div>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
-            {format(new Date(booking.bookingDate), 'MMM d, yyyy')}
-          </span>
-          <span className="flex items-center gap-1">
-            <Clock className="h-3 w-3" />
-            {booking.startTime} - {booking.endTime}
-          </span>
-        </div>
-        {booking.notes && (
-          <p className="text-sm text-muted-foreground">{booking.notes}</p>
-        )}
-      </div>
-      <div className="flex items-center gap-2">
-        <Badge
-          variant={
-            booking.status === 'confirmed'
-              ? 'default'
-              : booking.status === 'pending'
-              ? 'secondary'
-              : booking.status === 'completed'
-              ? 'outline'
-              : 'destructive'
-          }
-        >
-          {booking.status}
-        </Badge>
-        <span className="font-semibold text-primary">{booking.totalAmount} EGP</span>
-      </div>
-    </div>
-  );
+  // Prepare teachers list for assignment dropdown
+  const availableTeachers = centerProfile.centerTeachers.map((ct) => ({
+    id: ct.teacher.id,
+    userId: ct.teacher.userId,
+    fullName: ct.teacher.user.fullName,
+    avatarUrl: ct.teacher.user.avatarUrl,
+    availabilityCount: ct.teacher.availabilities.length,
+  }));
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Bookings</h1>
-        <p className="text-muted-foreground">View all bookings for your center&apos;s centerTeachers</p>
+        <p className="text-muted-foreground">
+          Manage bookings for your center and assign teachers
+        </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-5">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Total Bookings</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{bookings.length}</div>
+          </CardContent>
+        </Card>
+        <Card className={awaitingAssignmentBookings.length > 0 ? 'border-amber-500' : ''}>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium flex items-center gap-1">
+              {awaitingAssignmentBookings.length > 0 && (
+                <AlertCircle className="h-4 w-4 text-amber-500" />
+              )}
+              Awaiting Assignment
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-amber-600">
+              {awaitingAssignmentBookings.length}
+            </div>
           </CardContent>
         </Card>
         <Card>
@@ -136,9 +140,18 @@ export default async function CenterBookingsPage() {
         </Card>
       </div>
 
-      <Tabs defaultValue="all">
+      <Tabs defaultValue={awaitingAssignmentBookings.length > 0 ? 'awaiting' : 'all'}>
         <TabsList>
           <TabsTrigger value="all">All ({bookings.length})</TabsTrigger>
+          <TabsTrigger value="awaiting" className="relative">
+            Awaiting ({awaitingAssignmentBookings.length})
+            {awaitingAssignmentBookings.length > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+              </span>
+            )}
+          </TabsTrigger>
           <TabsTrigger value="pending">Pending ({pendingBookings.length})</TabsTrigger>
           <TabsTrigger value="confirmed">Confirmed ({confirmedBookings.length})</TabsTrigger>
           <TabsTrigger value="completed">Completed ({completedBookings.length})</TabsTrigger>
@@ -155,12 +168,50 @@ export default async function CenterBookingsPage() {
                 <div className="py-10 text-center">
                   <Calendar className="mx-auto h-12 w-12 text-muted-foreground" />
                   <h3 className="mt-4 text-lg font-semibold">No bookings yet</h3>
-                  <p className="text-muted-foreground">Bookings will appear here once parents book sessions</p>
+                  <p className="text-muted-foreground">
+                    Bookings will appear here once parents book sessions
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {bookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} />
+                    <CenterBookingCard
+                      key={booking.id}
+                      booking={booking}
+                      teachers={availableTeachers}
+                    />
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="awaiting" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertCircle className="h-5 w-5 text-amber-500" />
+                Awaiting Teacher Assignment
+              </CardTitle>
+              <CardDescription>
+                These bookings need a teacher assigned. Select an available teacher for each booking.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {awaitingAssignmentBookings.length === 0 ? (
+                <p className="py-8 text-center text-muted-foreground">
+                  No bookings awaiting assignment
+                </p>
+              ) : (
+                <div className="space-y-4">
+                  {awaitingAssignmentBookings.map((booking) => (
+                    <CenterBookingCard
+                      key={booking.id}
+                      booking={booking}
+                      teachers={availableTeachers}
+                      showAssignment
+                    />
                   ))}
                 </div>
               )}
@@ -172,11 +223,15 @@ export default async function CenterBookingsPage() {
           <Card>
             <CardContent className="pt-6">
               {pendingBookings.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8">No pending bookings</p>
+                <p className="py-8 text-center text-muted-foreground">No pending bookings</p>
               ) : (
                 <div className="space-y-4">
                   {pendingBookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} />
+                    <CenterBookingCard
+                      key={booking.id}
+                      booking={booking}
+                      teachers={availableTeachers}
+                    />
                   ))}
                 </div>
               )}
@@ -188,11 +243,15 @@ export default async function CenterBookingsPage() {
           <Card>
             <CardContent className="pt-6">
               {confirmedBookings.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8">No confirmed bookings</p>
+                <p className="py-8 text-center text-muted-foreground">No confirmed bookings</p>
               ) : (
                 <div className="space-y-4">
                   {confirmedBookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} />
+                    <CenterBookingCard
+                      key={booking.id}
+                      booking={booking}
+                      teachers={availableTeachers}
+                    />
                   ))}
                 </div>
               )}
@@ -204,11 +263,15 @@ export default async function CenterBookingsPage() {
           <Card>
             <CardContent className="pt-6">
               {completedBookings.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8">No completed bookings</p>
+                <p className="py-8 text-center text-muted-foreground">No completed bookings</p>
               ) : (
                 <div className="space-y-4">
                   {completedBookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} />
+                    <CenterBookingCard
+                      key={booking.id}
+                      booking={booking}
+                      teachers={availableTeachers}
+                    />
                   ))}
                 </div>
               )}

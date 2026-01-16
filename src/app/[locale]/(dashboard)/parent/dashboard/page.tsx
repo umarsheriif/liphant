@@ -155,11 +155,11 @@ export default async function ParentDashboardPage({ params }: PageProps) {
               >
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarImage src={booking.teacher.avatarUrl || undefined} />
-                    <AvatarFallback>{booking.teacher.fullName[0]}</AvatarFallback>
+                    <AvatarImage src={booking.teacher?.avatarUrl || undefined} />
+                    <AvatarFallback>{booking.teacher?.fullName?.[0] || '?'}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-medium">{booking.teacher.fullName}</p>
+                    <p className="font-medium">{booking.teacher?.fullName || 'Teacher to be assigned'}</p>
                     <p className="text-sm text-muted-foreground">
                       {format(booking.bookingDate, 'MMM d, yyyy')} at {booking.startTime}
                     </p>
