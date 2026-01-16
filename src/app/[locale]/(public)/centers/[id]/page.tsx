@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,10 +7,51 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Header, Footer } from '@/components/layout';
 import { Building, MapPin, Star, Phone, Mail, Globe, Clock, CheckCircle, Users, DollarSign, Briefcase } from 'lucide-react';
 import { getCenterById } from '@/lib/data/centers';
+import { CenterJsonLd } from '@/components/seo';
 import Link from 'next/link';
 
 interface PageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const center = await getCenterById(id);
+
+  if (!center) {
+    return {
+      title: 'Center Not Found',
+    };
+  }
+
+  const description = center.descriptionEn
+    ? center.descriptionEn.slice(0, 160)
+    : `${center.nameEn} - Therapy center in ${center.city || 'Egypt'} offering ${center.specializations.slice(0, 3).join(', ')}. Book services online on Liphant.`;
+
+  return {
+    title: `${center.nameEn} - Therapy Center`,
+    description,
+    keywords: [
+      center.nameEn,
+      'therapy center',
+      ...center.specializations,
+      center.city || 'Egypt',
+    ],
+    openGraph: {
+      title: `${center.nameEn} - Therapy Center | Liphant`,
+      description,
+      url: `/centers/${id}`,
+      type: 'website',
+      images: center.logoUrl
+        ? [{ url: center.logoUrl, alt: center.nameEn }]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${center.nameEn} - Therapy Center`,
+      description,
+    },
+  };
 }
 
 export default async function CenterProfilePage({ params }: PageProps) {
@@ -22,6 +64,19 @@ export default async function CenterProfilePage({ params }: PageProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <CenterJsonLd
+        name={center.nameEn}
+        description={center.descriptionEn || `Therapy center in ${center.city || 'Egypt'}`}
+        image={center.logoUrl || undefined}
+        url={`https://liphant.co/en/centers/${id}`}
+        address={center.address || ''}
+        city={center.city || 'Egypt'}
+        services={center.specializations}
+        rating={center.ratingAvg > 0 ? center.ratingAvg : undefined}
+        reviewCount={center.reviewCount > 0 ? center.reviewCount : undefined}
+        phone={center.phone || undefined}
+        email={center.email || undefined}
+      />
       <Header />
       <main className="flex-1 bg-muted/30">
         {/* Hero */}
@@ -135,7 +190,7 @@ export default async function CenterProfilePage({ params }: PageProps) {
                           <div className="mt-3 flex items-center gap-4 text-sm">
                             <span className="flex items-center gap-1 text-green-600">
                               <DollarSign className="h-3 w-3" />
-                              {service.price} SAR
+                              {service.price} EGP
                             </span>
                             <span className="flex items-center gap-1 text-muted-foreground">
                               <Clock className="h-3 w-3" />

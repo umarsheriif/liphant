@@ -1,5 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 import { LanguageSwitcher } from '@/components/layout';
 import { Logo } from '@/components/brand';
 import { Button } from '@/components/ui/button';

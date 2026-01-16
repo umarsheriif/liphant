@@ -7,6 +7,7 @@ import { locales, localeDirection, type Locale } from '@/i18n/config';
 import { Toaster } from '@/components/ui/sonner';
 import { SessionProvider } from '@/components/providers';
 import { BetaBanner } from '@/components/layout';
+import { OrganizationJsonLd, WebsiteJsonLd } from '@/components/seo';
 import '../globals.css';
 
 // Poppins - Primary font for English (as per brand guidelines)
@@ -30,21 +31,37 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://liphant.co'),
   title: {
     default: 'Liphant - Where every child flourishes',
     template: '%s | Liphant',
   },
   description:
-    'Connect with qualified shadow teachers and therapy centers to support your child with special needs in Egypt.',
+    'Connect with qualified shadow teachers and therapy centers to support your child with special needs in Egypt. Find ADHD specialists, autism therapists, speech therapy, and more.',
   keywords: [
     'shadow teacher',
-    'special needs',
-    'ADHD',
-    'autism',
-    'therapy',
-    'Egypt',
+    'shadow teacher Egypt',
+    'special needs Egypt',
+    'ADHD support Egypt',
+    'autism therapy Egypt',
+    'speech therapy Egypt',
+    'occupational therapy',
     'child development',
+    'therapy center Egypt',
+    'special needs teacher',
+    'معلم ظل',
+    'احتياجات خاصة',
+    'علاج التوحد',
+    'علاج فرط الحركة',
   ],
+  authors: [{ name: 'Liphant', url: 'https://liphant.co' }],
+  creator: 'Liphant',
+  publisher: 'Liphant',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -54,6 +71,50 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   manifest: '/site.webmanifest',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: 'ar_EG',
+    url: 'https://liphant.co',
+    siteName: 'Liphant',
+    title: 'Liphant - Where every child flourishes',
+    description:
+      'Connect with qualified shadow teachers and therapy centers to support your child with special needs in Egypt.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Liphant - Special Needs Support Platform',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Liphant - Where every child flourishes',
+    description:
+      'Connect with qualified shadow teachers and therapy centers to support your child with special needs in Egypt.',
+    images: ['/og-image.png'],
+    creator: '@liphant',
+    site: '@liphant',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add these when you have them
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+  },
+  category: 'healthcare',
 };
 
 export function generateStaticParams() {
@@ -84,6 +145,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
+      <head>
+        <OrganizationJsonLd />
+        <WebsiteJsonLd />
+      </head>
       <body className={`${fontClass} antialiased`}>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>

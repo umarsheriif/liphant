@@ -1,8 +1,30 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Header, Footer } from '@/components/layout';
 import { TeacherCard, TeacherFilters } from '@/components/teachers';
 import { getTeachers, getAvailableCities } from '@/lib/data/teachers';
 import type { Specialization } from '@prisma/client';
+
+export const metadata: Metadata = {
+  title: 'Find Shadow Teachers & Therapists',
+  description:
+    'Browse verified shadow teachers and therapists in Egypt. Find specialists in ADHD, autism, speech therapy, occupational therapy, and more. Book sessions online.',
+  keywords: [
+    'shadow teacher Egypt',
+    'find therapist Egypt',
+    'ADHD specialist',
+    'autism therapist',
+    'speech therapist Egypt',
+    'occupational therapist',
+    'special needs teacher',
+  ],
+  openGraph: {
+    title: 'Find Shadow Teachers & Therapists | Liphant',
+    description:
+      'Browse verified shadow teachers and therapists in Egypt. Find specialists in ADHD, autism, speech therapy, and more.',
+    url: '/teachers',
+  },
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;

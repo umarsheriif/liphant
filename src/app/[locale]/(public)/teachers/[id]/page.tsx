@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -21,10 +22,52 @@ import {
   ArrowLeft,
 } from 'lucide-react';
 import { getTeacherById, getTeacherReviews } from '@/lib/data/teachers';
+import { TeacherJsonLd } from '@/components/seo';
 import type { Specialization } from '@prisma/client';
 
 interface PageProps {
   params: Promise<{ locale: string; id: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id, locale } = await params;
+  const teacher = await getTeacherById(id);
+
+  if (!teacher) {
+    return {
+      title: 'Teacher Not Found',
+    };
+  }
+
+  const bio = locale === 'ar' ? teacher.bioAr : teacher.bioEn;
+  const description = bio
+    ? bio.slice(0, 160)
+    : `${teacher.user.fullName} - Shadow teacher specializing in ${teacher.specializations.slice(0, 3).join(', ')}. Book sessions online on Liphant.`;
+
+  return {
+    title: `${teacher.user.fullName} - Shadow Teacher`,
+    description,
+    keywords: [
+      teacher.user.fullName,
+      'shadow teacher',
+      ...teacher.specializations,
+      teacher.city || 'Egypt',
+    ],
+    openGraph: {
+      title: `${teacher.user.fullName} - Shadow Teacher | Liphant`,
+      description,
+      url: `/teachers/${id}`,
+      type: 'profile',
+      images: teacher.user.avatarUrl
+        ? [{ url: teacher.user.avatarUrl, alt: teacher.user.fullName }]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${teacher.user.fullName} - Shadow Teacher`,
+      description,
+    },
+  };
 }
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -66,6 +109,17 @@ export default async function TeacherProfilePage({ params }: PageProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <TeacherJsonLd
+        name={teacher.user.fullName}
+        description={bio || `Shadow teacher with ${teacher.experienceYears} years of experience`}
+        image={teacher.user.avatarUrl || undefined}
+        url={`https://liphant.co/en/teachers/${id}`}
+        specializations={teacher.specializations}
+        rating={teacher.ratingAvg > 0 ? teacher.ratingAvg : undefined}
+        reviewCount={teacher.reviewCount > 0 ? teacher.reviewCount : undefined}
+        priceRange={`${teacher.hourlyRate} EGP/hour`}
+        location={teacher.city || undefined}
+      />
       <Header />
 
       <main className="flex-1 bg-muted/30">

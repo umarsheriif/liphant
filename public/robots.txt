@@ -1,0 +1,33 @@
+# Liphant - Robots.txt
+# https://liphant.co
+
+User-agent: *
+Allow: /
+
+# Allow all public pages
+Allow: /en/
+Allow: /ar/
+Allow: /en/teachers
+Allow: /ar/teachers
+Allow: /en/centers
+Allow: /ar/centers
+Allow: /en/about
+Allow: /ar/about
+Allow: /en/faq
+Allow: /ar/faq
+Allow: /en/contact
+Allow: /ar/contact
+
+# Disallow private/dashboard pages
+Disallow: /*/parent/
+Disallow: /*/teacher/
+Disallow: /*/center/
+Disallow: /*/admin/
+Disallow: /*/login
+Disallow: /*/register
+Disallow: /*/messages
+Disallow: /*/bookings
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://liphant.co/sitemap.xml

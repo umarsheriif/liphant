@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,27 @@ import { Header, Footer } from '@/components/layout';
 import { Building, MapPin, Star, Users, Search, CheckCircle } from 'lucide-react';
 import { getCenters, getCenterCities } from '@/lib/data/centers';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Find Therapy Centers',
+  description:
+    'Discover specialized therapy centers in Egypt offering comprehensive services for children with special needs. Speech therapy, occupational therapy, ABA, and more.',
+  keywords: [
+    'therapy center Egypt',
+    'special needs center',
+    'speech therapy center',
+    'occupational therapy center',
+    'ABA therapy center',
+    'autism center Egypt',
+    'child therapy Egypt',
+  ],
+  openGraph: {
+    title: 'Find Therapy Centers | Liphant',
+    description:
+      'Discover specialized therapy centers in Egypt offering comprehensive services for children with special needs.',
+    url: '/centers',
+  },
+};
 
 interface PageProps {
   searchParams: Promise<{
