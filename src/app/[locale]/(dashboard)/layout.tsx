@@ -25,6 +25,7 @@ import {
   Building,
   Users,
   BarChart3,
+  FileText,
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { auth, signOut } from '@/lib/auth';
@@ -54,6 +55,7 @@ export default async function DashboardLayout({
     ? [
         { href: '/teacher/dashboard', icon: Home, label: 'Dashboard' },
         { href: '/teacher/bookings', icon: Calendar, label: 'Bookings' },
+        { href: '/teacher/records', icon: FileText, label: 'Session Records' },
         { href: '/teacher/availability', icon: Clock, label: 'Availability' },
         { href: '/community', icon: Users, label: 'Community' },
         { href: '/messages', icon: MessageCircle, label: 'Messages' },
@@ -64,6 +66,7 @@ export default async function DashboardLayout({
         { href: '/center/dashboard', icon: Home, label: 'Dashboard' },
         { href: '/center/teachers', icon: Users, label: 'Teachers' },
         { href: '/center/bookings', icon: Calendar, label: 'Bookings' },
+        { href: '/center/records', icon: FileText, label: 'Session Records' },
         { href: '/center/analytics', icon: BarChart3, label: 'Analytics' },
         { href: '/community', icon: Users, label: 'Community' },
         { href: '/messages', icon: MessageCircle, label: 'Messages' },
@@ -74,6 +77,7 @@ export default async function DashboardLayout({
         { href: '/teachers', icon: Search, label: 'Find Teachers' },
         { href: '/centers', icon: Building, label: 'Find Centers' },
         { href: '/parent/bookings', icon: Calendar, label: 'Bookings' },
+        { href: '/parent/records', icon: FileText, label: 'Session Records' },
         { href: '/community', icon: Users, label: 'Community' },
         { href: '/messages', icon: MessageCircle, label: 'Messages' },
       ];

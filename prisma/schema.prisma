@@ -134,6 +134,10 @@ model User {
   forumPosts       ForumPost[]     @relation("ForumPostAuthor")
   forumComments    ForumComment[]  @relation("ForumCommentAuthor")
 
+  // Session records relations
+  sessionNotes     SessionNote[]     @relation("SessionNoteAuthor")
+  sessionDocuments SessionDocument[] @relation("SessionDocumentUploader")
+
   @@map("users")
 }
 
@@ -252,9 +256,11 @@ model Booking {
   createdAt   DateTime      @default(now()) @map("created_at")
   updatedAt   DateTime      @updatedAt @map("updated_at")
 
-  parent  User    @relation("ParentBookings", fields: [parentId], references: [id])
-  teacher User    @relation("TeacherBookings", fields: [teacherId], references: [id])
-  review  Review?
+  parent           User              @relation("ParentBookings", fields: [parentId], references: [id])
+  teacher          User              @relation("TeacherBookings", fields: [teacherId], references: [id])
+  review           Review?
+  sessionNotes     SessionNote[]
+  sessionDocuments SessionDocument[]
 
   @@map("bookings")
 }
@@ -558,4 +564,42 @@ model ForumComment {
   replies ForumComment[] @relation("CommentReplies")
 
   @@map("forum_comments")
+}
+
+// ============================================
+// SESSION RECORDS MODELS
+// ============================================
+
+// Session notes for bookings
+model SessionNote {
+  id        String   @id @default(cuid())
+  bookingId String   @map("booking_id")
+  authorId  String   @map("author_id")
+  content   String   @db.Text
+  isPrivate Boolean  @default(false) @map("is_private") // Only visible to author
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  author  User    @relation("SessionNoteAuthor", fields: [authorId], references: [id])
+
+  @@map("session_notes")
+}
+
+// Session documents for bookings
+model SessionDocument {
+  id           String   @id @default(cuid())
+  bookingId    String   @map("booking_id")
+  uploadedById String   @map("uploaded_by_id")
+  name         String   // Display name
+  fileUrl      String   @map("file_url")
+  fileType     String   @map("file_type") // pdf, image, doc, etc.
+  fileSize     Int?     @map("file_size") // bytes
+  isPrivate    Boolean  @default(false) @map("is_private")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  booking    Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  uploadedBy User    @relation("SessionDocumentUploader", fields: [uploadedById], references: [id])
+
+  @@map("session_documents")
 }
